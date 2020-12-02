@@ -65,7 +65,7 @@ server <- function(input, output) {
                     scale_y_continuous(labels = scales::percent) +
                     scale_x_date(date_breaks = "1 month", date_minor_breaks = "1 week", date_labels = "%B") +
 
-                    labs(title = paste0("Bed occupancy rates in ", input$trust_name),
+                    labs(title = paste0("Current and historical bed occupancy rates in ", input$trust_name),
                          subtitle = "Red line shows rates in 2020-21; grey lines show historical average, minimum and maximum rates",
                          x = NULL, y = "Bed occupancy rate", caption = "Source: BRC/I&I analysis of NHSE data") +
                     theme_classic()
@@ -85,12 +85,27 @@ server <- function(input, output) {
                     scale_y_continuous(labels = scales::percent) +
                     scale_x_date(date_breaks = "1 month", date_minor_breaks = "1 week", date_labels = "%B") +
 
-                    labs(title = paste0("Bed occupancy rates in ", input$trust_name),
-                         subtitle = "Red line shows rates in 2020-21; grey lines show historical average, minimum and maximum rates",
+                    labs(title = paste0("Bed occupancy rates in ", input$trust_name, " compared to other Trusts"),
+                         subtitle = paste0("Red line shows rates in ", input$trust_name, "; grey lines show other Trusts"),
                          x = NULL, y = "Bed occupancy rate", caption = "Source: BRC/I&I analysis of NHSE data") +
                     theme_classic()
 
             } else if (input$trust_comparison == "England averages") {
+                eng_hist_sum %>%
+                    ggplot(aes(x = day_of_year, y = `Median occupancy rate`, group = 1)) +
+                    geom_ribbon(aes(ymin = `Min occupancy rate`, ymax = `Max occupancy rate`), fill = "grey", alpha = 0.4) +
+                    geom_line(colour = "grey", lty = 2, size = 1.1) +
+
+                    geom_line(data = trust_2021 %>% filter(Name == input$trust_name),
+                              aes(y = `Occupancy rate`), colour = "red", size = 1.1) +
+
+                    scale_y_continuous(labels = scales::percent) +
+                    scale_x_date(date_breaks = "1 month", date_minor_breaks = "1 week", date_labels = "%B") +
+
+                    labs(title = paste0("Bed occupancy rates in ", input$trust_name, " compared to England as a whole"),
+                         subtitle = "Red line shows rates in 2020-21; grey lines show historical average, minimum and maximum rates",
+                         x = NULL, y = "Bed occupancy rate", caption = "Source: BRC/I&I analysis of NHSE data") +
+                    theme_classic()
 
             }
 
