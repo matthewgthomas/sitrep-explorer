@@ -71,6 +71,24 @@ server <- function(input, output) {
                     theme_classic()
 
             } else if (input$trust_comparison == "Other Trusts this year") {
+                trust_2021 %>%
+                    ggplot()+
+
+                    geom_line(data = trust_2021 %>% filter(Name != input$trust_name),
+                              aes(x = day_of_year, y = `Occupancy rate`, group = Name),
+                              colour = "grey", alpha = 0.7) +
+
+                    geom_line(data = trust_2021 %>% filter(Name == input$trust_name),
+                              aes(x = day_of_year, y = `Occupancy rate`),
+                              colour = "red", size = 1.1) +
+
+                    scale_y_continuous(labels = scales::percent) +
+                    scale_x_date(date_breaks = "1 month", date_minor_breaks = "1 week", date_labels = "%B") +
+
+                    labs(title = paste0("Bed occupancy rates in ", input$trust_name),
+                         subtitle = "Red line shows rates in 2020-21; grey lines show historical average, minimum and maximum rates",
+                         x = NULL, y = "Bed occupancy rate", caption = "Source: BRC/I&I analysis of NHSE data") +
+                    theme_classic()
 
             } else if (input$trust_comparison == "England averages") {
 
