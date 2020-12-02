@@ -1,5 +1,7 @@
 library(tidyverse)
 library(lubridate)
+library(arrow)
+
 # remotes::install_github("matthewgthomas/NHSWinterSitreps")
 library(NHSWinterSitreps)
 
@@ -54,20 +56,6 @@ eng_hist_sum <- eng_beds %>%
             `Max occupancy rate` = max(`Occupancy rate`),
             `Min occupancy rate` = min(`Occupancy rate`))
 
-# ---- Test plot of bed occupancy over time ----
-eng_hist_sum %>%
-  ggplot(aes(x = day_of_year, y = `Median occupancy rate`, group = 1)) +
-  geom_ribbon(aes(ymin = `Min occupancy rate`, ymax = `Max occupancy rate`), fill = "grey", alpha = 0.4) +
-  geom_line(colour = "grey", lty = 2, size = 1.1) +
-
-  geom_line(data = eng_2021, aes(y = `Occupancy rate`), colour = "red", size = 1.1) +
-
-  scale_y_continuous(labels = scales::percent) +
-  scale_x_date(date_breaks = "1 month", date_minor_breaks = "1 week", date_labels = "%B") +
-
-  labs(x = NULL, y = "Bed occupancy rate", caption = "Source: BRC/I&I analysis of NHSE data") +
-  theme_classic()
-
 # ---- Get Trust-level data ----
 # - Helper functions -
 get_trusts <- function(d) {
@@ -104,7 +92,33 @@ trust_hist_sum <- trust_beds %>%
             `Max occupancy rate` = max(`Occupancy rate`),
             `Min occupancy rate` = min(`Occupancy rate`))
 
-# ---- Test plot of bed occupancy over time for a Trust ----
+# ---- Save data ----
+write_csv(eng_2021, "data/england-2020-21.csv")
+write_csv(eng_hist_sum, "data/england-historical.csv")
+write_csv(trust_2021, "data/trusts-2020-21.csv")
+write_csv(trust_hist_sum, "data/trusts-historical.csv")
+
+write_feather(eng_2021,       "data/england-2020-21.feather", compression = "uncompressed")
+write_feather(eng_hist_sum,   "data/england-historical.feather", compression = "uncompressed")
+write_feather(trust_2021,     "data/trusts-2020-21.feather", compression = "uncompressed")
+write_feather(trust_hist_sum, "data/trusts-historical.feather", compression = "uncompressed")
+
+# ---- Test plots ----
+# - Bed occupancy over time -
+eng_hist_sum %>%
+  ggplot(aes(x = day_of_year, y = `Median occupancy rate`, group = 1)) +
+  geom_ribbon(aes(ymin = `Min occupancy rate`, ymax = `Max occupancy rate`), fill = "grey", alpha = 0.4) +
+  geom_line(colour = "grey", lty = 2, size = 1.1) +
+
+  geom_line(data = eng_2021, aes(y = `Occupancy rate`), colour = "red", size = 1.1) +
+
+  scale_y_continuous(labels = scales::percent) +
+  scale_x_date(date_breaks = "1 month", date_minor_breaks = "1 week", date_labels = "%B") +
+
+  labs(x = NULL, y = "Bed occupancy rate", caption = "Source: BRC/I&I analysis of NHSE data") +
+  theme_classic()
+
+# - Bed occupancy over time for a Trust -
 trust_hist_sum %>%
   filter(Name == "Airedale NHS Foundation Trust") %>%
 
