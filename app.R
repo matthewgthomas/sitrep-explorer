@@ -50,8 +50,31 @@ server <- function(input, output) {
 
         } else {
             # User wants to look at Trusts
+            # What do they want to compare the selected Trust to?
+            if (input$trust_comparison == "Itself historically") {
+                trust_hist_sum %>%
+                    filter(Name == input$trust_name) %>%
 
+                    ggplot(aes(x = day_of_year, y = `Median occupancy rate`, group = 1)) +
+                    geom_ribbon(aes(ymin = `Min occupancy rate`, ymax = `Max occupancy rate`), fill = "grey", alpha = 0.4) +
+                    geom_line(colour = "grey", lty = 2, size = 1.1) +
 
+                    geom_line(data = trust_2021 %>% filter(Name == input$trust_name),
+                              aes(y = `Occupancy rate`), colour = "red", size = 1.1) +
+
+                    scale_y_continuous(labels = scales::percent) +
+                    scale_x_date(date_breaks = "1 month", date_minor_breaks = "1 week", date_labels = "%B") +
+
+                    labs(title = paste0("Bed occupancy rates in ", input$trust_name),
+                         subtitle = "Red line shows rates in 2020-21; grey lines show historical average, minimum and maximum rates",
+                         x = NULL, y = "Bed occupancy rate", caption = "Source: BRC/I&I analysis of NHSE data") +
+                    theme_classic()
+
+            } else if (input$trust_comparison == "Other Trusts this year") {
+
+            } else if (input$trust_comparison == "England averages") {
+
+            }
 
         }
     })
