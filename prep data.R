@@ -17,7 +17,7 @@ sitrep1516 <- load_sitreps("2015-16")
 # - Helper functions -
 get_england <- function(d) {
   d %>%
-    filter(Name == "ENGLAND") %>%
+    filter(str_detect(Name, "ENGLAND")) %>%
     select(Date, `Occupancy rate`)
 }
 
@@ -60,7 +60,7 @@ eng_hist_sum <- eng_beds %>%
 # - Helper functions -
 get_trusts <- function(d) {
   d %>%
-    filter(Name != "ENGLAND") %>%
+    filter(!str_detect(Name, "ENGLAND")) %>%
     select(Date, Name, `Occupancy rate`)
 }
 

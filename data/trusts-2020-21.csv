@@ -1,5 +1,4 @@
 Date,Name,Occupancy rate,day_of_year
-2020-11-02T00:00:00Z,ENGLAND (All Acute Trusts),0.863878386541086,2020-11-02
 2020-11-02T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.91600790513834,2020-11-02
 2020-11-02T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9041850220264317,2020-11-02
 2020-11-02T00:00:00Z,East and North Hertfordshire NHS Trust,0.7575187969924813,2020-11-02
@@ -127,7 +126,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-11-02T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8304568527918782,2020-11-02
 2020-11-02T00:00:00Z,University Hospitals Plymouth NHS Trust,0.9104477611940298,2020-11-02
 2020-11-02T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.9209726443768997,2020-11-02
-2020-11-03T00:00:00Z,ENGLAND (All Acute Trusts),0.8839233764489997,2020-11-03
 2020-11-03T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9005847953216374,2020-11-03
 2020-11-03T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.887292817679558,2020-11-03
 2020-11-03T00:00:00Z,East and North Hertfordshire NHS Trust,0.7763157894736842,2020-11-03
@@ -255,7 +253,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-11-03T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8567164179104477,2020-11-03
 2020-11-03T00:00:00Z,University Hospitals Plymouth NHS Trust,0.936141304347826,2020-11-03
 2020-11-03T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.9259259259259259,2020-11-03
-2020-11-04T00:00:00Z,ENGLAND (All Acute Trusts),0.8839050427800891,2020-11-04
 2020-11-04T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.8843537414965986,2020-11-04
 2020-11-04T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.8808988764044944,2020-11-04
 2020-11-04T00:00:00Z,East and North Hertfordshire NHS Trust,0.806390977443609,2020-11-04
@@ -383,7 +380,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-11-04T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8817097415506958,2020-11-04
 2020-11-04T00:00:00Z,University Hospitals Plymouth NHS Trust,0.8958051420838972,2020-11-04
 2020-11-04T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.9104938271604939,2020-11-04
-2020-11-05T00:00:00Z,ENGLAND (All Acute Trusts),0.8776650030841698,2020-11-05
 2020-11-05T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.8771929824561403,2020-11-05
 2020-11-05T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.919226393629124,2020-11-05
 2020-11-05T00:00:00Z,East and North Hertfordshire NHS Trust,0.7650375939849624,2020-11-05
@@ -511,7 +507,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-11-05T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8605817452357071,2020-11-05
 2020-11-05T00:00:00Z,University Hospitals Plymouth NHS Trust,0.9265927977839336,2020-11-05
 2020-11-05T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.9134615384615384,2020-11-05
-2020-11-06T00:00:00Z,ENGLAND (All Acute Trusts),0.873380712486506,2020-11-06
 2020-11-06T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.905458089668616,2020-11-06
 2020-11-06T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9378531073446328,2020-11-06
 2020-11-06T00:00:00Z,East and North Hertfordshire NHS Trust,0.8233082706766918,2020-11-06
@@ -639,7 +634,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-11-06T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8823529411764706,2020-11-06
 2020-11-06T00:00:00Z,University Hospitals Plymouth NHS Trust,0.8906882591093117,2020-11-06
 2020-11-06T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.8954248366013072,2020-11-06
-2020-11-07T00:00:00Z,ENGLAND (All Acute Trusts),0.8574498891452875,2020-11-07
 2020-11-07T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9298418972332015,2020-11-07
 2020-11-07T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9145106861642295,2020-11-07
 2020-11-07T00:00:00Z,East and North Hertfordshire NHS Trust,0.7725563909774437,2020-11-07
@@ -767,7 +761,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-11-07T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8512820512820513,2020-11-07
 2020-11-07T00:00:00Z,University Hospitals Plymouth NHS Trust,0.8982118294360385,2020-11-07
 2020-11-07T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.9052287581699346,2020-11-07
-2020-11-08T00:00:00Z,ENGLAND (All Acute Trusts),0.8572367600893049,2020-11-08
 2020-11-08T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.908102766798419,2020-11-08
 2020-11-08T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9106334841628959,2020-11-08
 2020-11-08T00:00:00Z,East and North Hertfordshire NHS Trust,0.8195488721804511,2020-11-08
@@ -895,7 +888,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-11-08T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8682877406281662,2020-11-08
 2020-11-08T00:00:00Z,University Hospitals Plymouth NHS Trust,0.9054242002781642,2020-11-08
 2020-11-08T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.9039735099337748,2020-11-08
-2020-11-09T00:00:00Z,ENGLAND (All Acute Trusts),0.8727723050942865,2020-11-09
 2020-11-09T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.884313725490196,2020-11-09
 2020-11-09T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9313835770528683,2020-11-09
 2020-11-09T00:00:00Z,East and North Hertfordshire NHS Trust,0.849624060150376,2020-11-09
@@ -1023,7 +1015,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-11-09T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8671259842519685,2020-11-09
 2020-11-09T00:00:00Z,University Hospitals Plymouth NHS Trust,0.9258241758241759,2020-11-09
 2020-11-09T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.9038461538461539,2020-11-09
-2020-11-10T00:00:00Z,ENGLAND (All Acute Trusts),0.890686444760635,2020-11-10
 2020-11-10T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.8945812807881773,2020-11-10
 2020-11-10T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9282511210762332,2020-11-10
 2020-11-10T00:00:00Z,East and North Hertfordshire NHS Trust,0.8646616541353384,2020-11-10
@@ -1151,7 +1142,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-11-10T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.9067713444553483,2020-11-10
 2020-11-10T00:00:00Z,University Hospitals Plymouth NHS Trust,0.9231824417009602,2020-11-10
 2020-11-10T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.9519230769230769,2020-11-10
-2020-11-11T00:00:00Z,ENGLAND (All Acute Trusts),0.8894166143919706,2020-11-11
 2020-11-11T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9105211406096362,2020-11-11
 2020-11-11T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9527027027027027,2020-11-11
 2020-11-11T00:00:00Z,East and North Hertfordshire NHS Trust,0.8345864661654135,2020-11-11
@@ -1279,7 +1269,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-11-11T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.9091806515301086,2020-11-11
 2020-11-11T00:00:00Z,University Hospitals Plymouth NHS Trust,0.930327868852459,2020-11-11
 2020-11-11T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.8914473684210527,2020-11-11
-2020-11-12T00:00:00Z,ENGLAND (All Acute Trusts),0.8913373262464743,2020-11-12
 2020-11-12T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.8954501452081317,2020-11-12
 2020-11-12T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9587628865979382,2020-11-12
 2020-11-12T00:00:00Z,East and North Hertfordshire NHS Trust,0.8853383458646616,2020-11-12
@@ -1407,7 +1396,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-11-12T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8657171922685656,2020-11-12
 2020-11-12T00:00:00Z,University Hospitals Plymouth NHS Trust,0.9275766016713092,2020-11-12
 2020-11-12T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.90625,2020-11-12
-2020-11-13T00:00:00Z,ENGLAND (All Acute Trusts),0.8851466201384589,2020-11-13
 2020-11-13T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.888996138996139,2020-11-13
 2020-11-13T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9463243873978997,2020-11-13
 2020-11-13T00:00:00Z,East and North Hertfordshire NHS Trust,0.8665413533834586,2020-11-13
@@ -1535,7 +1523,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-11-13T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8683127572016461,2020-11-13
 2020-11-13T00:00:00Z,University Hospitals Plymouth NHS Trust,0.941944847605225,2020-11-13
 2020-11-13T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.9087837837837838,2020-11-13
-2020-11-14T00:00:00Z,ENGLAND (All Acute Trusts),0.865677205109959,2020-11-14
 2020-11-14T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9158415841584159,2020-11-14
 2020-11-14T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9212050984936269,2020-11-14
 2020-11-14T00:00:00Z,East and North Hertfordshire NHS Trust,0.8477443609022557,2020-11-14
@@ -1663,7 +1650,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-11-14T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8390446521287642,2020-11-14
 2020-11-14T00:00:00Z,University Hospitals Plymouth NHS Trust,0.9527326440177253,2020-11-14
 2020-11-14T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.8943894389438944,2020-11-14
-2020-11-15T00:00:00Z,ENGLAND (All Acute Trusts),0.8622935987333182,2020-11-15
 2020-11-15T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9320388349514563,2020-11-15
 2020-11-15T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9278959810874704,2020-11-15
 2020-11-15T00:00:00Z,East and North Hertfordshire NHS Trust,0.8853383458646616,2020-11-15
@@ -1791,7 +1777,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-11-15T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8277310924369747,2020-11-15
 2020-11-15T00:00:00Z,University Hospitals Plymouth NHS Trust,0.9598214285714286,2020-11-15
 2020-11-15T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.8737201365187713,2020-11-15
-2020-11-16T00:00:00Z,ENGLAND (All Acute Trusts),0.8793115093659942,2020-11-16
 2020-11-16T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.943050193050193,2020-11-16
 2020-11-16T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9294947121034077,2020-11-16
 2020-11-16T00:00:00Z,East and North Hertfordshire NHS Trust,0.8947368421052632,2020-11-16
@@ -1919,7 +1904,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-11-16T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8367346938775511,2020-11-16
 2020-11-16T00:00:00Z,University Hospitals Plymouth NHS Trust,0.8904299583911235,2020-11-16
 2020-11-16T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.8365384615384616,2020-11-16
-2020-11-17T00:00:00Z,ENGLAND (All Acute Trusts),0.8928395504007881,2020-11-17
 2020-11-17T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9573643410852714,2020-11-17
 2020-11-17T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9330985915492958,2020-11-17
 2020-11-17T00:00:00Z,East and North Hertfordshire NHS Trust,0.8890977443609023,2020-11-17
@@ -2047,7 +2031,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-11-17T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.9030558482613277,2020-11-17
 2020-11-17T00:00:00Z,University Hospitals Plymouth NHS Trust,0.9176954732510288,2020-11-17
 2020-11-17T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.865814696485623,2020-11-17
-2020-11-18T00:00:00Z,ENGLAND (All Acute Trusts),0.89208390854910935,2020-11-18
 2020-11-18T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9202755905511811,2020-11-18
 2020-11-18T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9248768472906403,2020-11-18
 2020-11-18T00:00:00Z,East and North Hertfordshire NHS Trust,0.849624060150376,2020-11-18
@@ -2175,7 +2158,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-11-18T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.9067796610169492,2020-11-18
 2020-11-18T00:00:00Z,University Hospitals Plymouth NHS Trust,0.926490984743412,2020-11-18
 2020-11-18T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.8881789137380192,2020-11-18
-2020-11-19T00:00:00Z,ENGLAND (All Acute Trusts),0.883791705503835,2020-11-19
 2020-11-19T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9196865817825661,2020-11-19
 2020-11-19T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9547123623011016,2020-11-19
 2020-11-19T00:00:00Z,East and North Hertfordshire NHS Trust,0.8703007518796992,2020-11-19
@@ -2303,7 +2285,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-11-19T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.9066523605150214,2020-11-19
 2020-11-19T00:00:00Z,University Hospitals Plymouth NHS Trust,0.896505376344086,2020-11-19
 2020-11-19T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.8798701298701299,2020-11-19
-2020-11-20T00:00:00Z,ENGLAND (All Acute Trusts),0.8777912839906357,2020-11-20
 2020-11-20T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9128712871287129,2020-11-20
 2020-11-20T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9460122699386503,2020-11-20
 2020-11-20T00:00:00Z,East and North Hertfordshire NHS Trust,0.8909774436090225,2020-11-20
@@ -2431,7 +2412,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-11-20T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8892438764643238,2020-11-20
 2020-11-20T00:00:00Z,University Hospitals Plymouth NHS Trust,0.9126760563380282,2020-11-20
 2020-11-20T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.8408304498269896,2020-11-20
-2020-11-21T00:00:00Z,ENGLAND (All Acute Trusts),0.8539328377570473,2020-11-21
 2020-11-21T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.8607214428857716,2020-11-21
 2020-11-21T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.922509225092251,2020-11-21
 2020-11-21T00:00:00Z,East and North Hertfordshire NHS Trust,0.8703007518796992,2020-11-21
@@ -2559,7 +2539,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-11-21T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8592592592592593,2020-11-21
 2020-11-21T00:00:00Z,University Hospitals Plymouth NHS Trust,0.8590785907859079,2020-11-21
 2020-11-21T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.8194444444444444,2020-11-21
-2020-11-22T00:00:00Z,ENGLAND (All Acute Trusts),0.8569459664026932,2020-11-22
 2020-11-22T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9165829145728643,2020-11-22
 2020-11-22T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9263420724094882,2020-11-22
 2020-11-22T00:00:00Z,East and North Hertfordshire NHS Trust,0.8627819548872181,2020-11-22
@@ -2687,7 +2666,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-11-22T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.7883650952858575,2020-11-22
 2020-11-22T00:00:00Z,University Hospitals Plymouth NHS Trust,0.8795669824086604,2020-11-22
 2020-11-22T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.8,2020-11-22
-2020-11-23T00:00:00Z,ENGLAND (All Acute Trusts),0.8682699452813619,2020-11-23
 2020-11-23T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9120879120879121,2020-11-23
 2020-11-23T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9373464373464373,2020-11-23
 2020-11-23T00:00:00Z,East and North Hertfordshire NHS Trust,0.8834586466165414,2020-11-23
@@ -2815,7 +2793,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-11-23T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8180914512922465,2020-11-23
 2020-11-23T00:00:00Z,University Hospitals Plymouth NHS Trust,0.8901808785529716,2020-11-23
 2020-11-23T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.7692307692307693,2020-11-23
-2020-11-24T00:00:00Z,ENGLAND (All Acute Trusts),0.8802664240545428,2020-11-24
 2020-11-24T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9454365079365079,2020-11-24
 2020-11-24T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9197530864197531,2020-11-24
 2020-11-24T00:00:00Z,East and North Hertfordshire NHS Trust,0.8984962406015038,2020-11-24
@@ -2943,7 +2920,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-11-24T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8303747534516766,2020-11-24
 2020-11-24T00:00:00Z,University Hospitals Plymouth NHS Trust,0.8784810126582279,2020-11-24
 2020-11-24T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.8817567567567568,2020-11-24
-2020-11-25T00:00:00Z,ENGLAND (All Acute Trusts),0.8794110379837822,2020-11-25
 2020-11-25T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.933597621407334,2020-11-25
 2020-11-25T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.906064209274673,2020-11-25
 2020-11-25T00:00:00Z,East and North Hertfordshire NHS Trust,0.8853383458646616,2020-11-25
@@ -3071,7 +3047,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-11-25T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8318227593152064,2020-11-25
 2020-11-25T00:00:00Z,University Hospitals Plymouth NHS Trust,0.8865069356872636,2020-11-25
 2020-11-25T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.872852233676976,2020-11-25
-2020-11-26T00:00:00Z,ENGLAND (All Acute Trusts),0.8783712440325752,2020-11-26
 2020-11-26T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9270428015564203,2020-11-26
 2020-11-26T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9237187127532777,2020-11-26
 2020-11-26T00:00:00Z,East and North Hertfordshire NHS Trust,0.8759398496240601,2020-11-26
@@ -3199,7 +3174,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-11-26T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8285714285714286,2020-11-26
 2020-11-26T00:00:00Z,University Hospitals Plymouth NHS Trust,0.8729351969504447,2020-11-26
 2020-11-26T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.8513513513513513,2020-11-26
-2020-11-27T00:00:00Z,ENGLAND (All Acute Trusts),0.8714729310112056,2020-11-27
 2020-11-27T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9107843137254902,2020-11-27
 2020-11-27T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9146634615384616,2020-11-27
 2020-11-27T00:00:00Z,East and North Hertfordshire NHS Trust,0.8740601503759399,2020-11-27
@@ -3327,7 +3301,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-11-27T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8355555555555556,2020-11-27
 2020-11-27T00:00:00Z,University Hospitals Plymouth NHS Trust,0.8706786171574904,2020-11-27
 2020-11-27T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.8493150684931506,2020-11-27
-2020-11-28T00:00:00Z,ENGLAND (All Acute Trusts),0.8509834775767112,2020-11-28
 2020-11-28T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9352941176470588,2020-11-28
 2020-11-28T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.919664268585132,2020-11-28
 2020-11-28T00:00:00Z,East and North Hertfordshire NHS Trust,0.8571428571428571,2020-11-28
@@ -3455,7 +3428,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-11-28T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.806998939554613,2020-11-28
 2020-11-28T00:00:00Z,University Hospitals Plymouth NHS Trust,0.8624678663239075,2020-11-28
 2020-11-28T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.8639455782312925,2020-11-28
-2020-11-29T00:00:00Z,ENGLAND (All Acute Trusts),0.8481075472549285,2020-11-29
 2020-11-29T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.920666013712047,2020-11-29
 2020-11-29T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9262394195888755,2020-11-29
 2020-11-29T00:00:00Z,East and North Hertfordshire NHS Trust,0.849624060150376,2020-11-29
@@ -3583,7 +3555,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-11-29T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.7943037974683544,2020-11-29
 2020-11-29T00:00:00Z,University Hospitals Plymouth NHS Trust,0.8389513108614233,2020-11-29
 2020-11-29T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.8338983050847457,2020-11-29
-2020-11-30T00:00:00Z,ENGLAND (All Acute Trusts),0.8694990874062056,2020-11-30
 2020-11-30T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9262213359920239,2020-11-30
 2020-11-30T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.928311057108141,2020-11-30
 2020-11-30T00:00:00Z,East and North Hertfordshire NHS Trust,0.8759398496240601,2020-11-30
@@ -3711,7 +3682,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-11-30T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8071278825995807,2020-11-30
 2020-11-30T00:00:00Z,University Hospitals Plymouth NHS Trust,0.8325242718446602,2020-11-30
 2020-11-30T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.8580645161290322,2020-11-30
-2020-12-01T00:00:00Z,ENGLAND (All Acute Trusts),0.8783279786110674,2020-12-01
 2020-12-01T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9194831013916501,2020-12-01
 2020-12-01T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9507211538461539,2020-12-01
 2020-12-01T00:00:00Z,East and North Hertfordshire NHS Trust,0.868421052631579,2020-12-01
@@ -3839,7 +3809,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-01T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8562367864693446,2020-12-01
 2020-12-01T00:00:00Z,University Hospitals Plymouth NHS Trust,0.8774271844660194,2020-12-01
 2020-12-01T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.8681672025723473,2020-12-01
-2020-12-02T00:00:00Z,ENGLAND (All Acute Trusts),0.8784570106265867,2020-12-02
 2020-12-02T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9107843137254902,2020-12-02
 2020-12-02T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9101654846335697,2020-12-02
 2020-12-02T00:00:00Z,East and North Hertfordshire NHS Trust,0.9078947368421053,2020-12-02
@@ -3967,7 +3936,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-02T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8740740740740741,2020-12-02
 2020-12-02T00:00:00Z,University Hospitals Plymouth NHS Trust,0.8566265060240964,2020-12-02
 2020-12-02T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.8810289389067524,2020-12-02
-2020-12-03T00:00:00Z,ENGLAND (All Acute Trusts),0.8740406624478255,2020-12-03
 2020-12-03T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9103585657370518,2020-12-03
 2020-12-03T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9368295589988082,2020-12-03
 2020-12-03T00:00:00Z,East and North Hertfordshire NHS Trust,0.9060150375939849,2020-12-03
@@ -4095,7 +4063,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-03T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8707983193277311,2020-12-03
 2020-12-03T00:00:00Z,University Hospitals Plymouth NHS Trust,0.8518072289156626,2020-12-03
 2020-12-03T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.8640776699029126,2020-12-03
-2020-12-04T00:00:00Z,ENGLAND (All Acute Trusts),0.8765486080746246,2020-12-04
 2020-12-04T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.8778778778778779,2020-12-04
 2020-12-04T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9391408114558473,2020-12-04
 2020-12-04T00:00:00Z,East and North Hertfordshire NHS Trust,0.8646616541353384,2020-12-04
@@ -4223,7 +4190,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-04T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8986556359875905,2020-12-04
 2020-12-04T00:00:00Z,University Hospitals Plymouth NHS Trust,0.8725728155339806,2020-12-04
 2020-12-04T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.869281045751634,2020-12-04
-2020-12-05T00:00:00Z,ENGLAND (All Acute Trusts),0.8606069487971502,2020-12-05
 2020-12-05T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9064386317907445,2020-12-05
 2020-12-05T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9237187127532777,2020-12-05
 2020-12-05T00:00:00Z,East and North Hertfordshire NHS Trust,0.868421052631579,2020-12-05
@@ -4350,7 +4316,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-05T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8426966292134831,2020-12-05
 2020-12-05T00:00:00Z,University Hospitals Plymouth NHS Trust,0.8182912154031288,2020-12-05
 2020-12-05T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.8625,2020-12-05
-2020-12-06T00:00:00Z,ENGLAND (All Acute Trusts),0.8617400997624168,2020-12-06
 2020-12-06T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9048562933597621,2020-12-06
 2020-12-06T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9355608591885441,2020-12-06
 2020-12-06T00:00:00Z,East and North Hertfordshire NHS Trust,0.8834586466165414,2020-12-06
@@ -4478,7 +4443,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-06T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8395560040363269,2020-12-06
 2020-12-06T00:00:00Z,University Hospitals Plymouth NHS Trust,0.8180722891566266,2020-12-06
 2020-12-06T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.8846153846153846,2020-12-06
-2020-12-07T00:00:00Z,ENGLAND (All Acute Trusts),0.8808671952983927,2020-12-07
 2020-12-07T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9106796116504854,2020-12-07
 2020-12-07T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9310344827586207,2020-12-07
 2020-12-07T00:00:00Z,East and North Hertfordshire NHS Trust,0.8740601503759399,2020-12-07
@@ -4606,7 +4570,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-07T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8661899897854954,2020-12-07
 2020-12-07T00:00:00Z,University Hospitals Plymouth NHS Trust,0.8620268620268621,2020-12-07
 2020-12-07T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.91875,2020-12-07
-2020-12-08T00:00:00Z,ENGLAND (All Acute Trusts),0.8969026203452927,2020-12-08
 2020-12-08T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.958252427184466,2020-12-08
 2020-12-08T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9420118343195266,2020-12-08
 2020-12-08T00:00:00Z,East and North Hertfordshire NHS Trust,0.8759398496240601,2020-12-08
@@ -4734,7 +4697,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-08T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.902834008097166,2020-12-08
 2020-12-08T00:00:00Z,University Hospitals Plymouth NHS Trust,0.8968446601941747,2020-12-08
 2020-12-08T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.93125,2020-12-08
-2020-12-09T00:00:00Z,ENGLAND (All Acute Trusts),0.8972199290479485,2020-12-09
 2020-12-09T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.8981390793339863,2020-12-09
 2020-12-09T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9181286549707602,2020-12-09
 2020-12-09T00:00:00Z,East and North Hertfordshire NHS Trust,0.8759398496240601,2020-12-09
@@ -4862,7 +4824,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-09T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.9101123595505618,2020-12-09
 2020-12-09T00:00:00Z,University Hospitals Plymouth NHS Trust,0.9101941747572816,2020-12-09
 2020-12-09T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.9071207430340558,2020-12-09
-2020-12-10T00:00:00Z,ENGLAND (All Acute Trusts),0.893585419784245,2020-12-10
 2020-12-10T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9067713444553483,2020-12-10
 2020-12-10T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9482352941176471,2020-12-10
 2020-12-10T00:00:00Z,East and North Hertfordshire NHS Trust,0.8834586466165414,2020-12-10
@@ -4990,7 +4951,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-10T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8888888888888888,2020-12-10
 2020-12-10T00:00:00Z,University Hospitals Plymouth NHS Trust,0.9114077669902912,2020-12-10
 2020-12-10T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.9079365079365079,2020-12-10
-2020-12-11T00:00:00Z,ENGLAND (All Acute Trusts),0.8942363628227502,2020-12-11
 2020-12-11T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.945382323733863,2020-12-11
 2020-12-11T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9386792452830188,2020-12-11
 2020-12-11T00:00:00Z,East and North Hertfordshire NHS Trust,0.8590225563909775,2020-12-11
@@ -5118,7 +5078,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-11T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8860887096774194,2020-12-11
 2020-12-11T00:00:00Z,University Hospitals Plymouth NHS Trust,0.9039615846338536,2020-12-11
 2020-12-11T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.9034267912772586,2020-12-11
-2020-12-12T00:00:00Z,ENGLAND (All Acute Trusts),0.8810706556476301,2020-12-12
 2020-12-12T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.918407960199005,2020-12-12
 2020-12-12T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9052132701421801,2020-12-12
 2020-12-12T00:00:00Z,East and North Hertfordshire NHS Trust,0.8477443609022557,2020-12-12
@@ -5246,7 +5205,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-12T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8722772277227723,2020-12-12
 2020-12-12T00:00:00Z,University Hospitals Plymouth NHS Trust,0.8939759036144578,2020-12-12
 2020-12-12T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,0.8662790697674418,2020-12-12
-2020-12-13T00:00:00Z,ENGLAND (All Acute Trusts),0.8821107196553194,2020-12-13
 2020-12-13T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.8972055888223552,2020-12-13
 2020-12-13T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9443127962085308,2020-12-13
 2020-12-13T00:00:00Z,East and North Hertfordshire NHS Trust,0.8609022556390977,2020-12-13
@@ -5374,7 +5332,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-13T00:00:00Z,University Hospitals Dorset NHS Foundation Trust,0.8885542168674698,2020-12-13
 2020-12-13T00:00:00Z,University Hospitals Plymouth NHS Trust,0.9088699878493317,2020-12-13
 2020-12-13T00:00:00Z,Yeovil District Hospital NHS Foundation Trust,1,2020-12-13
-2020-12-14T00:00:00Z,ENGLAND (All Acute Trusts),0.892295995945261,2020-12-14
 2020-12-14T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9412915851272016,2020-12-14
 2020-12-14T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9419642857142857,2020-12-14
 2020-12-14T00:00:00Z,East and North Hertfordshire NHS Trust,0.8703007518796992,2020-12-14
@@ -5511,7 +5468,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-14T00:00:00Z,The Christie NHS Foundation Trust,0.74,2020-12-14
 2020-12-14T00:00:00Z,The Walton Centre NHS Foundation Trust,0.9727272727272728,2020-12-14
 2020-12-14T00:00:00Z,Queen Victoria Hospital NHS Foundation Trust,0.2708333333333333,2020-12-14
-2020-12-15T00:00:00Z,ENGLAND (All Acute Trusts),0.9036638736777287,2020-12-15
 2020-12-15T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.938894277400582,2020-12-15
 2020-12-15T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9470124013528749,2020-12-15
 2020-12-15T00:00:00Z,East and North Hertfordshire NHS Trust,0.8872180451127819,2020-12-15
@@ -5648,7 +5604,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-15T00:00:00Z,The Christie NHS Foundation Trust,0.8466666666666667,2020-12-15
 2020-12-15T00:00:00Z,The Walton Centre NHS Foundation Trust,0.8584905660377359,2020-12-15
 2020-12-15T00:00:00Z,Queen Victoria Hospital NHS Foundation Trust,0.4375,2020-12-15
-2020-12-16T00:00:00Z,ENGLAND (All Acute Trusts),0.8998410000548276,2020-12-16
 2020-12-16T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9431818181818182,2020-12-16
 2020-12-16T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9638009049773756,2020-12-16
 2020-12-16T00:00:00Z,East and North Hertfordshire NHS Trust,0.8533834586466166,2020-12-16
@@ -5785,7 +5740,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-16T00:00:00Z,The Christie NHS Foundation Trust,0.8133333333333334,2020-12-16
 2020-12-16T00:00:00Z,The Walton Centre NHS Foundation Trust,0.8301886792452831,2020-12-16
 2020-12-16T00:00:00Z,Queen Victoria Hospital NHS Foundation Trust,0.6041666666666666,2020-12-16
-2020-12-17T00:00:00Z,ENGLAND (All Acute Trusts),0.8941253908178377,2020-12-17
 2020-12-17T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9377394636015326,2020-12-17
 2020-12-17T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.958997722095672,2020-12-17
 2020-12-17T00:00:00Z,East and North Hertfordshire NHS Trust,0.8233082706766918,2020-12-17
@@ -5923,7 +5877,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-17T00:00:00Z,The Christie NHS Foundation Trust,0.72,2020-12-17
 2020-12-17T00:00:00Z,The Walton Centre NHS Foundation Trust,0.9433962264150944,2020-12-17
 2020-12-17T00:00:00Z,Queen Victoria Hospital NHS Foundation Trust,0.6458333333333334,2020-12-17
-2020-12-18T00:00:00Z,ENGLAND (All Acute Trusts),0.8883957089675529,2020-12-18
 2020-12-18T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9260326609029779,2020-12-18
 2020-12-18T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9342403628117913,2020-12-18
 2020-12-18T00:00:00Z,East and North Hertfordshire NHS Trust,0.8345864661654135,2020-12-18
@@ -6061,7 +6014,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-18T00:00:00Z,The Christie NHS Foundation Trust,0.835820895522388,2020-12-18
 2020-12-18T00:00:00Z,The Walton Centre NHS Foundation Trust,0.8482142857142857,2020-12-18
 2020-12-18T00:00:00Z,Queen Victoria Hospital NHS Foundation Trust,0.6666666666666666,2020-12-18
-2020-12-19T00:00:00Z,ENGLAND (All Acute Trusts),0.8587825012139673,2020-12-19
 2020-12-19T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9353281853281853,2020-12-19
 2020-12-19T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9036281179138322,2020-12-19
 2020-12-19T00:00:00Z,East and North Hertfordshire NHS Trust,0.8157894736842105,2020-12-19
@@ -6199,7 +6151,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-19T00:00:00Z,The Christie NHS Foundation Trust,0.8134328358208955,2020-12-19
 2020-12-19T00:00:00Z,The Walton Centre NHS Foundation Trust,0.7181818181818181,2020-12-19
 2020-12-19T00:00:00Z,Queen Victoria Hospital NHS Foundation Trust,0.5625,2020-12-19
-2020-12-20T00:00:00Z,ENGLAND (All Acute Trusts),0.8659912528372917,2020-12-20
 2020-12-20T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9309338521400778,2020-12-20
 2020-12-20T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9071347678369196,2020-12-20
 2020-12-20T00:00:00Z,East and North Hertfordshire NHS Trust,0.7857142857142857,2020-12-20
@@ -6337,7 +6288,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-20T00:00:00Z,The Christie NHS Foundation Trust,0.8582089552238806,2020-12-20
 2020-12-20T00:00:00Z,The Walton Centre NHS Foundation Trust,0.6909090909090909,2020-12-20
 2020-12-20T00:00:00Z,Queen Victoria Hospital NHS Foundation Trust,0.5416666666666666,2020-12-20
-2020-12-21T00:00:00Z,ENGLAND (All Acute Trusts),0.8762419460009062,2020-12-21
 2020-12-21T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9397473275024295,2020-12-21
 2020-12-21T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.8974654377880185,2020-12-21
 2020-12-21T00:00:00Z,East and North Hertfordshire NHS Trust,0.8176691729323309,2020-12-21
@@ -6475,7 +6425,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-21T00:00:00Z,The Christie NHS Foundation Trust,0.8656716417910447,2020-12-21
 2020-12-21T00:00:00Z,The Walton Centre NHS Foundation Trust,0.7685185185185185,2020-12-21
 2020-12-21T00:00:00Z,Queen Victoria Hospital NHS Foundation Trust,0.5625,2020-12-21
-2020-12-22T00:00:00Z,ENGLAND (All Acute Trusts),0.8779586371734295,2020-12-22
 2020-12-22T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9324853228962818,2020-12-22
 2020-12-22T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.9067415730337078,2020-12-22
 2020-12-22T00:00:00Z,East and North Hertfordshire NHS Trust,0.7913533834586466,2020-12-22
@@ -6613,7 +6562,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-22T00:00:00Z,The Christie NHS Foundation Trust,0.916030534351145,2020-12-22
 2020-12-22T00:00:00Z,The Walton Centre NHS Foundation Trust,0.7247706422018348,2020-12-22
 2020-12-22T00:00:00Z,Queen Victoria Hospital NHS Foundation Trust,0.5208333333333334,2020-12-22
-2020-12-23T00:00:00Z,ENGLAND (All Acute Trusts),0.8592472808630353,2020-12-23
 2020-12-23T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9430255402750491,2020-12-23
 2020-12-23T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.8809248554913295,2020-12-23
 2020-12-23T00:00:00Z,East and North Hertfordshire NHS Trust,0.7518796992481203,2020-12-23
@@ -6750,7 +6698,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-23T00:00:00Z,The Christie NHS Foundation Trust,0.9083969465648855,2020-12-23
 2020-12-23T00:00:00Z,The Walton Centre NHS Foundation Trust,0.6666666666666666,2020-12-23
 2020-12-23T00:00:00Z,Queen Victoria Hospital NHS Foundation Trust,0.4375,2020-12-23
-2020-12-24T00:00:00Z,ENGLAND (All Acute Trusts),0.8310504323732487,2020-12-24
 2020-12-24T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9121951219512195,2020-12-24
 2020-12-24T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.8373424971363116,2020-12-24
 2020-12-24T00:00:00Z,East and North Hertfordshire NHS Trust,0.7142857142857143,2020-12-24
@@ -6888,7 +6835,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-24T00:00:00Z,The Christie NHS Foundation Trust,0.8538461538461538,2020-12-24
 2020-12-24T00:00:00Z,The Walton Centre NHS Foundation Trust,0.6018518518518519,2020-12-24
 2020-12-24T00:00:00Z,Queen Victoria Hospital NHS Foundation Trust,0.625,2020-12-24
-2020-12-25T00:00:00Z,ENGLAND (All Acute Trusts),0.7609014414942814,2020-12-25
 2020-12-25T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.8391261171797418,2020-12-25
 2020-12-25T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.7835909631391201,2020-12-25
 2020-12-25T00:00:00Z,East and North Hertfordshire NHS Trust,0.6672932330827067,2020-12-25
@@ -7026,7 +6972,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-25T00:00:00Z,The Christie NHS Foundation Trust,0.6230769230769231,2020-12-25
 2020-12-25T00:00:00Z,The Walton Centre NHS Foundation Trust,0.46296296296296297,2020-12-25
 2020-12-25T00:00:00Z,Queen Victoria Hospital NHS Foundation Trust,0.475,2020-12-25
-2020-12-26T00:00:00Z,ENGLAND (All Acute Trusts),0.7715412243233138,2020-12-26
 2020-12-26T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.8549848942598187,2020-12-26
 2020-12-26T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.7952380952380952,2020-12-26
 2020-12-26T00:00:00Z,East and North Hertfordshire NHS Trust,0.6823308270676691,2020-12-26
@@ -7164,7 +7109,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-26T00:00:00Z,The Christie NHS Foundation Trust,0.5877862595419847,2020-12-26
 2020-12-26T00:00:00Z,The Walton Centre NHS Foundation Trust,0.4722222222222222,2020-12-26
 2020-12-26T00:00:00Z,Queen Victoria Hospital NHS Foundation Trust,0.475,2020-12-26
-2020-12-27T00:00:00Z,ENGLAND (All Acute Trusts),0.8063737107003408,2020-12-27
 2020-12-27T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9096385542168675,2020-12-27
 2020-12-27T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.8219832735961768,2020-12-27
 2020-12-27T00:00:00Z,East and North Hertfordshire NHS Trust,0.7180451127819549,2020-12-27
@@ -7302,7 +7246,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-27T00:00:00Z,The Christie NHS Foundation Trust,0.6692307692307692,2020-12-27
 2020-12-27T00:00:00Z,The Walton Centre NHS Foundation Trust,0.4722222222222222,2020-12-27
 2020-12-27T00:00:00Z,Queen Victoria Hospital NHS Foundation Trust,0.3,2020-12-27
-2020-12-28T00:00:00Z,ENGLAND (All Acute Trusts),0.8391506526976301,2020-12-28
 2020-12-28T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9205103042198234,2020-12-28
 2020-12-28T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.8432748538011696,2020-12-28
 2020-12-28T00:00:00Z,East and North Hertfordshire NHS Trust,0.7612781954887218,2020-12-28
@@ -7439,7 +7382,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-28T00:00:00Z,The Christie NHS Foundation Trust,0.6384615384615384,2020-12-28
 2020-12-28T00:00:00Z,The Walton Centre NHS Foundation Trust,0.4732142857142857,2020-12-28
 2020-12-28T00:00:00Z,Queen Victoria Hospital NHS Foundation Trust,0.45,2020-12-28
-2020-12-29T00:00:00Z,ENGLAND (All Acute Trusts),0.866414283974806,2020-12-29
 2020-12-29T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9224806201550387,2020-12-29
 2020-12-29T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.860919540229885,2020-12-29
 2020-12-29T00:00:00Z,East and North Hertfordshire NHS Trust,0.8233082706766918,2020-12-29
@@ -7577,7 +7519,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-29T00:00:00Z,The Christie NHS Foundation Trust,0.8,2020-12-29
 2020-12-29T00:00:00Z,The Walton Centre NHS Foundation Trust,0.5535714285714286,2020-12-29
 2020-12-29T00:00:00Z,Queen Victoria Hospital NHS Foundation Trust,0.45,2020-12-29
-2020-12-30T00:00:00Z,ENGLAND (All Acute Trusts),0.8801363086731889,2020-12-30
 2020-12-30T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9539347408829175,2020-12-30
 2020-12-30T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.8711162255466053,2020-12-30
 2020-12-30T00:00:00Z,East and North Hertfordshire NHS Trust,0.849624060150376,2020-12-30
@@ -7715,7 +7656,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-30T00:00:00Z,The Christie NHS Foundation Trust,0.8513513513513513,2020-12-30
 2020-12-30T00:00:00Z,The Walton Centre NHS Foundation Trust,0.5945945945945946,2020-12-30
 2020-12-30T00:00:00Z,Queen Victoria Hospital NHS Foundation Trust,0.3,2020-12-30
-2020-12-31T00:00:00Z,ENGLAND (All Acute Trusts),0.878254270284539,2020-12-31
 2020-12-31T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9247619047619048,2020-12-31
 2020-12-31T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.8609501738122828,2020-12-31
 2020-12-31T00:00:00Z,East and North Hertfordshire NHS Trust,0.8947368421052632,2020-12-31
@@ -7853,7 +7793,6 @@ Date,Name,Occupancy rate,day_of_year
 2020-12-31T00:00:00Z,The Christie NHS Foundation Trust,0.8410596026490066,2020-12-31
 2020-12-31T00:00:00Z,The Walton Centre NHS Foundation Trust,0.5405405405405406,2020-12-31
 2020-12-31T00:00:00Z,Queen Victoria Hospital NHS Foundation Trust,0.475,2020-12-31
-2021-01-01T00:00:00Z,ENGLAND (All Acute Trusts),0.8510777269758328,2021-01-01
 2021-01-01T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9219790675547098,2021-01-01
 2021-01-01T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.8610778443113772,2021-01-01
 2021-01-01T00:00:00Z,East and North Hertfordshire NHS Trust,0.8270676691729323,2021-01-01
@@ -7991,7 +7930,6 @@ Date,Name,Occupancy rate,day_of_year
 2021-01-01T00:00:00Z,The Christie NHS Foundation Trust,0.7748344370860927,2021-01-01
 2021-01-01T00:00:00Z,The Walton Centre NHS Foundation Trust,0.5495495495495496,2021-01-01
 2021-01-01T00:00:00Z,Queen Victoria Hospital NHS Foundation Trust,0.475,2021-01-01
-2021-01-02T00:00:00Z,ENGLAND (All Acute Trusts),0.8590446617336153,2021-01-02
 2021-01-02T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9219653179190751,2021-01-02
 2021-01-02T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.8698795180722891,2021-01-02
 2021-01-02T00:00:00Z,East and North Hertfordshire NHS Trust,0.8646616541353384,2021-01-02
@@ -8129,7 +8067,6 @@ Date,Name,Occupancy rate,day_of_year
 2021-01-02T00:00:00Z,The Christie NHS Foundation Trust,0.7785234899328859,2021-01-02
 2021-01-02T00:00:00Z,The Walton Centre NHS Foundation Trust,0.5267857142857143,2021-01-02
 2021-01-02T00:00:00Z,Queen Victoria Hospital NHS Foundation Trust,0.375,2021-01-02
-2021-01-03T00:00:00Z,ENGLAND (All Acute Trusts),0.8726670481556476,2021-01-03
 2021-01-03T00:00:00Z,Bedfordshire Hospitals NHS Foundation Trust,0.9349670122525919,2021-01-03
 2021-01-03T00:00:00Z,Cambridge University Hospitals NHS Foundation Trust,0.8907766990291263,2021-01-03
 2021-01-03T00:00:00Z,East and North Hertfordshire NHS Trust,0.849624060150376,2021-01-03
