@@ -5,9 +5,9 @@ account: britishredcross
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 3340260
-bundleId: 4068185
+bundleId: 4099885
 url: https://britishredcross.shinyapps.io/sitrep-explorer/
-when: 1610020286.73968
+when: 1610716550.37984
 asMultiple: FALSE
 asStatic: FALSE
 ignoredFiles: .RData|prep data.R
