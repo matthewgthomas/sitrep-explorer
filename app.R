@@ -1,6 +1,7 @@
 library(shiny)
 library(arrow)
-library(tidyverse)
+library(ggplot2)
+library(dplyr)
 
 eng_2021 = read_feather("data/england-2020-21.feather")
 eng_hist_sum = read_feather("data/england-historical.feather")
