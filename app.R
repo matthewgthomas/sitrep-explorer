@@ -2,6 +2,7 @@ library(shiny)
 library(arrow)
 library(ggplot2)
 library(dplyr)
+library(shinycssloaders)
 
 eng_2021 = read_feather("data/england-2020-21.feather")
 eng_hist_sum = read_feather("data/england-historical.feather")
@@ -23,7 +24,7 @@ ui <- fluidPage(
         ),
 
         mainPanel(
-           plotOutput("plot")
+            shinycssloaders::withSpinner(plotOutput("plot"), color = "red")
         )
     )
 )
