@@ -57,17 +57,17 @@ eng_hist_sum <- eng_beds %>%
             `Max occupancy rate` = max(`Occupancy rate`),
             `Min occupancy rate` = min(`Occupancy rate`),
 
-            `Median occupancy rate` = median(`Critical care beds occupancy rate`),
-            `Max occupancy rate` = max(`Critical care beds occupancy rate`),
-            `Min occupancy rate` = min(`Critical care beds occupancy rate`),
+            `Median critical care beds occupancy rate` = median(`Critical care beds occupancy rate`),
+            `Max critical care beds occupancy rate` = max(`Critical care beds occupancy rate`),
+            `Min critical care beds occupancy rate` = min(`Critical care beds occupancy rate`),
 
-            `Median occupancy rate` = median(`No. beds  occupied by long-stay patients (> 7 days)`),
-            `Max occupancy rate` = max(`No. beds  occupied by long-stay patients (> 7 days)`),
-            `Min occupancy rate` = min(`No. beds  occupied by long-stay patients (> 7 days)`),
+            `Median no. beds occupied by long-stay patients (> 7 days)` = median(`No. beds  occupied by long-stay patients (> 7 days)`),
+            `Max no. beds occupied by long-stay patients (> 7 days)` = max(`No. beds  occupied by long-stay patients (> 7 days)`),
+            `Min no. beds occupied by long-stay patients (> 7 days)` = min(`No. beds  occupied by long-stay patients (> 7 days)`),
 
-            `Median occupancy rate` = median(`No. beds occupied by long-stay patients (> 21 days)`),
-            `Max occupancy rate` = max(`No. beds occupied by long-stay patients (> 21 days)`),
-            `Min occupancy rate` = min(`No. beds occupied by long-stay patients (> 21 days)`))
+            `Median no. beds occupied by long-stay patients (> 21 days)` = median(`No. beds occupied by long-stay patients (> 21 days)`),
+            `Max no. beds occupied by long-stay patients (> 21 days)` = max(`No. beds occupied by long-stay patients (> 21 days)`),
+            `Min no. beds occupied by long-stay patients (> 21 days)` = min(`No. beds occupied by long-stay patients (> 21 days)`))
 
 # ---- Get Trust-level data ----
 # - Helper functions -
@@ -106,17 +106,17 @@ trust_hist_sum <- trust_beds %>%
             `Max occupancy rate` = max(`Occupancy rate`),
             `Min occupancy rate` = min(`Occupancy rate`),
 
-            `Median occupancy rate` = median(`Critical care beds occupancy rate`),
-            `Max occupancy rate` = max(`Critical care beds occupancy rate`),
-            `Min occupancy rate` = min(`Critical care beds occupancy rate`),
+            `Median critical care beds occupancy rate` = median(`Critical care beds occupancy rate`),
+            `Max critical care beds occupancy rate` = max(`Critical care beds occupancy rate`),
+            `Min critical care beds occupancy rate` = min(`Critical care beds occupancy rate`),
 
-            `Median occupancy rate` = median(`No. beds  occupied by long-stay patients (> 7 days)`),
-            `Max occupancy rate` = max(`No. beds  occupied by long-stay patients (> 7 days)`),
-            `Min occupancy rate` = min(`No. beds  occupied by long-stay patients (> 7 days)`),
+            `Median no. beds occupied by long-stay patients (> 7 days)` = median(`No. beds  occupied by long-stay patients (> 7 days)`),
+            `Max no. beds occupied by long-stay patients (> 7 days)` = max(`No. beds  occupied by long-stay patients (> 7 days)`),
+            `Min no. beds occupied by long-stay patients (> 7 days)` = min(`No. beds  occupied by long-stay patients (> 7 days)`),
 
-            `Median occupancy rate` = median(`No. beds occupied by long-stay patients (> 21 days)`),
-            `Max occupancy rate` = max(`No. beds occupied by long-stay patients (> 21 days)`),
-            `Min occupancy rate` = min(`No. beds occupied by long-stay patients (> 21 days)`))
+            `Median no. beds occupied by long-stay patients (> 21 days)` = median(`No. beds occupied by long-stay patients (> 21 days)`),
+            `Max no. beds occupied by long-stay patients (> 21 days)` = max(`No. beds occupied by long-stay patients (> 21 days)`),
+            `Min no. beds occupied by long-stay patients (> 21 days)` = min(`No. beds occupied by long-stay patients (> 21 days)`))
 
 # ---- Save data ----
 write_csv(eng_2021, "data/england-2020-21.csv")
