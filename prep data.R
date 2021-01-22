@@ -18,7 +18,8 @@ sitrep1516 <- load_sitreps("2015-16")
 get_england <- function(d) {
   d %>%
     filter(str_detect(Name, "ENGLAND")) %>%
-    select(Date, `Occupancy rate`)
+    select(Date, `Occupancy rate`, contains("Critical"), contains("long")) %>%
+    mutate(across(-Date, as.double))
 }
 
 # get_months <- function(d) {
@@ -54,14 +55,27 @@ eng_hist_sum <- eng_beds %>%
   group_by(day_of_year) %>%
   summarise(`Median occupancy rate` = median(`Occupancy rate`),
             `Max occupancy rate` = max(`Occupancy rate`),
-            `Min occupancy rate` = min(`Occupancy rate`))
+            `Min occupancy rate` = min(`Occupancy rate`),
+
+            `Median occupancy rate` = median(`Critical care beds occupancy rate`),
+            `Max occupancy rate` = max(`Critical care beds occupancy rate`),
+            `Min occupancy rate` = min(`Critical care beds occupancy rate`),
+
+            `Median occupancy rate` = median(`No. beds  occupied by long-stay patients (> 7 days)`),
+            `Max occupancy rate` = max(`No. beds  occupied by long-stay patients (> 7 days)`),
+            `Min occupancy rate` = min(`No. beds  occupied by long-stay patients (> 7 days)`),
+
+            `Median occupancy rate` = median(`No. beds occupied by long-stay patients (> 21 days)`),
+            `Max occupancy rate` = max(`No. beds occupied by long-stay patients (> 21 days)`),
+            `Min occupancy rate` = min(`No. beds occupied by long-stay patients (> 21 days)`))
 
 # ---- Get Trust-level data ----
 # - Helper functions -
 get_trusts <- function(d) {
   d %>%
     filter(!str_detect(Name, "ENGLAND")) %>%
-    select(Date, Name, `Occupancy rate`)
+    select(Date, `Occupancy rate`, contains("Critical"), contains("long")) %>%
+    mutate(across(-Date, as.double))
 }
 
 # - Get Trust bed occupancy data -
@@ -90,7 +104,19 @@ trust_hist_sum <- trust_beds %>%
   group_by(day_of_year, Name) %>%
   summarise(`Median occupancy rate` = median(`Occupancy rate`),
             `Max occupancy rate` = max(`Occupancy rate`),
-            `Min occupancy rate` = min(`Occupancy rate`))
+            `Min occupancy rate` = min(`Occupancy rate`),
+
+            `Median occupancy rate` = median(`Critical care beds occupancy rate`),
+            `Max occupancy rate` = max(`Critical care beds occupancy rate`),
+            `Min occupancy rate` = min(`Critical care beds occupancy rate`),
+
+            `Median occupancy rate` = median(`No. beds  occupied by long-stay patients (> 7 days)`),
+            `Max occupancy rate` = max(`No. beds  occupied by long-stay patients (> 7 days)`),
+            `Min occupancy rate` = min(`No. beds  occupied by long-stay patients (> 7 days)`),
+
+            `Median occupancy rate` = median(`No. beds occupied by long-stay patients (> 21 days)`),
+            `Max occupancy rate` = max(`No. beds occupied by long-stay patients (> 21 days)`),
+            `Min occupancy rate` = min(`No. beds occupied by long-stay patients (> 21 days)`))
 
 # ---- Save data ----
 write_csv(eng_2021, "data/england-2020-21.csv")
