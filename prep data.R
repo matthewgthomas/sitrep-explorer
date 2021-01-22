@@ -74,8 +74,8 @@ eng_hist_sum <- eng_beds %>%
 get_trusts <- function(d) {
   d %>%
     filter(!str_detect(Name, "ENGLAND")) %>%
-    select(Date, `Occupancy rate`, contains("Critical"), contains("long")) %>%
-    mutate(across(-Date, as.double))
+    select(Date, Name, `Occupancy rate`, contains("Critical"), contains("long")) %>%
+    mutate(across(-c(Date, Name), as.double))
 }
 
 # - Get Trust bed occupancy data -
