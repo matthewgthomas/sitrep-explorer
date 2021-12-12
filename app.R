@@ -4,8 +4,10 @@ library(ggplot2)
 library(dplyr)
 library(shinycssloaders)
 
+eng_2122 = read_feather("data/england-2021-22.feather")
 eng_2021 = read_feather("data/england-2020-21.feather")
 eng_hist_sum = read_feather("data/england-historical.feather")
+trust_2122 = read_feather("data/trusts-2021-22.feather")
 trust_2021 = read_feather("data/trusts-2020-21.feather")
 trust_hist_sum = read_feather("data/trusts-historical.feather")
 
@@ -21,7 +23,7 @@ ui <- fluidPage(
 
             radioButtons("eng_or_trusts", "Show data for England or for individual Trusts?", choices = c("England", "Trusts")),
 
-            selectInput("trust_name", "Select a Trust", sort(trust_2021$Name), selected = sort(trust_2021$Name)[1], multiple = FALSE),
+            selectInput("trust_name", "Select a Trust", sort(trust_2122$Name), selected = sort(trust_2122$Name)[1], multiple = FALSE),
 
             radioButtons("trust_comparison", "Compare this Trust to...", choices = c("Itself historically", "Other Trusts this year", "England averages"))
         ),
@@ -43,6 +45,9 @@ server <- function(input, output) {
                        Indicator_max = `Max critical care beds occupancy rate`,
                        Indicator_min = `Min critical care beds occupancy rate`)
 
+            eng_2122 <- eng_2122 %>%
+              mutate(Indicator = `Critical care beds occupancy rate`)
+
             eng_2021 <- eng_2021 %>%
                 mutate(Indicator = `Critical care beds occupancy rate`)
 
@@ -50,6 +55,9 @@ server <- function(input, output) {
                 mutate(Indicator = `Median critical care beds occupancy rate`,
                        Indicator_max = `Max critical care beds occupancy rate`,
                        Indicator_min = `Min critical care beds occupancy rate`)
+
+            trust_2122 <- trust_2122 %>%
+              mutate(Indicator = `Critical care beds occupancy rate`)
 
             trust_2021 <- trust_2021 %>%
                 mutate(Indicator = `Critical care beds occupancy rate`)
@@ -60,6 +68,9 @@ server <- function(input, output) {
                        Indicator_max = `Max occupancy rate`,
                        Indicator_min = `Min occupancy rate`)
 
+            eng_2122 <- eng_2122 %>%
+              mutate(Indicator = `Occupancy rate`)
+
             eng_2021 <- eng_2021 %>%
                 mutate(Indicator = `Occupancy rate`)
 
@@ -67,6 +78,9 @@ server <- function(input, output) {
                 mutate(Indicator = `Median occupancy rate`,
                        Indicator_max = `Max occupancy rate`,
                        Indicator_min = `Min occupancy rate`)
+
+            trust_2122 <- trust_2122 %>%
+              mutate(Indicator = `Occupancy rate`)
 
             trust_2021 <- trust_2021 %>%
                 mutate(Indicator = `Occupancy rate`)
@@ -81,13 +95,14 @@ server <- function(input, output) {
                 geom_ribbon(aes(ymin = Indicator_min, ymax = Indicator_max), fill = "grey", alpha = 0.4) +
                 geom_line(colour = "grey", lty = 2, size = 1.1) +
 
-                geom_line(data = eng_2021, colour = "red", size = 1.1) +
+                geom_line(data = eng_2021, colour = "black", size = 1.1) +
+                geom_line(data = eng_2122, colour = "red", size = 1.1) +
 
                 scale_y_continuous(labels = scales::percent) +
                 scale_x_date(date_breaks = "1 month", date_minor_breaks = "1 week", date_labels = "%B") +
 
                 labs(title = paste0(input$indicator, " in England"),
-                     subtitle = "Red line shows rates in 2020-21; grey lines show historical average, minimum and maximum rates",
+                     subtitle = "Red line shows rates in 2021-22; back lines are rates in 2020-21; grey lines show historical average, minimum and maximum rates",
                      x = NULL, y = paste0(input$indicator, " rate"),
                      caption = "Source: BRC/I&I analysis of NHSE data") +
                 theme_classic()
@@ -104,7 +119,7 @@ server <- function(input, output) {
                     scale_x_date(date_breaks = "1 month", date_minor_breaks = "1 week", date_labels = "%B") +
 
                     labs(title = paste0(input$indicator, " in ", input$trust_name),
-                         subtitle = "Red line shows rates in 2020-21; grey lines show historical average, minimum and maximum rates",
+                         subtitle = "Red line shows rates in 2021-22; black lines are 2020-21; grey lines show historical average, minimum and maximum rates",
                          x = NULL, y = paste0(input$indicator, " rate"), caption = "Source: BRC/I&I analysis of NHSE data") +
                     theme_classic()
 
@@ -127,17 +142,21 @@ server <- function(input, output) {
                     geom_line(data = trust_2021 %>%
                                   # filter(Name == trust_2021$Name[2]),
                                   filter(Name == input$trust_name),
+                              aes(x = day_of_year, y = Indicator), colour = "black", size = 1.1) +
+                    geom_line(data = trust_2122 %>%
+                                  # filter(Name == trust_2021$Name[2]),
+                                  filter(Name == input$trust_name),
                               aes(x = day_of_year, y = Indicator), colour = "red", size = 1.1)
 
             } else if (input$trust_comparison == "Other Trusts this year") {
-                trust_2021 %>%
+                trust_2122 %>%
                     ggplot()+
 
-                    geom_line(data = trust_2021 %>% filter(Name != input$trust_name),
+                    geom_line(data = trust_2122 %>% filter(Name != input$trust_name),
                               aes(x = day_of_year, y = Indicator, group = Name),
                               colour = "grey", alpha = 0.7) +
 
-                    geom_line(data = trust_2021 %>% filter(Name == input$trust_name),
+                    geom_line(data = trust_2122 %>% filter(Name == input$trust_name),
                               aes(x = day_of_year, y = Indicator),
                               colour = "red", size = 1.1) +
 
@@ -150,19 +169,19 @@ server <- function(input, output) {
                     theme_classic()
 
             } else if (input$trust_comparison == "England averages") {
-                eng_2021 %>%
+                eng_2122 %>%
                     ggplot(aes(x = day_of_year, y = Indicator, group = 1)) +
                     # geom_ribbon(aes(ymin = Indicator_min, ymax = Indicator_max), fill = "grey", alpha = 0.4) +
                     geom_line(colour = "grey", lty = 2, size = 1.1) +
 
-                    geom_line(data = trust_2021 %>% filter(Name == input$trust_name),
+                    geom_line(data = trust_2122 %>% filter(Name == input$trust_name),
                               aes(y = Indicator), colour = "red", size = 1.1) +
 
                     scale_y_continuous(labels = scales::percent) +
                     scale_x_date(date_breaks = "1 month", date_minor_breaks = "1 week", date_labels = "%B") +
 
                     labs(title = paste0(input$indicator, " in ", input$trust_name, " compared to England as a whole"),
-                         subtitle = "Red line shows 2020-21 rates for this Trust; grey line show England rate",
+                         subtitle = "Red line shows 2021-22 rates for this Trust; grey line show England rate",
                          x = NULL, y = paste0(input$indicator, " rate"), caption = "Source: BRC/I&I analysis of NHSE data") +
                     theme_classic()
 

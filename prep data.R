@@ -6,6 +6,7 @@ library(arrow)
 library(NHSWinterSitreps)
 
 # ---- Load sitreps ----
+sitrep2122 <- load_sitreps("2021-22")
 sitrep2021 <- load_sitreps("2020-21")
 sitrep1920 <- load_sitreps("2019-20")
 sitrep1819 <- load_sitreps("2018-19")
@@ -13,12 +14,30 @@ sitrep1718 <- load_sitreps("2017-18")
 sitrep1617 <- load_sitreps("2016-17")
 sitrep1516 <- load_sitreps("2015-16")
 
+# ---- Variable conversions ----
+sitrep2021 <-
+  sitrep2021 %>%
+  mutate(across(-c(Code:Date), as.numeric))
+
+sitrep2122 <-
+  sitrep2122 %>%
+  mutate(across(-c(Code:Date), as.numeric))
+
 # ---- Get England-level data ----
 # - Helper functions -
-get_england <- function(d) {
+get_england <- function(d, two_englands = FALSE) {
+  if (two_englands) {
+    d <-
+      d %>%
+      filter(str_detect(Name, "ENGLAND \\(All Acute Trusts\\)"))
+  } else {
+    d <-
+      d %>%
+      filter(str_detect(Name, "ENGLAND"))
+  }
+
   d %>%
-    filter(str_detect(Name, "ENGLAND")) %>%
-    select(Date, `Occupancy rate`, contains("Critical"), contains("long")) %>%
+    select(Date, `Occupancy rate`, starts_with("G&A"), contains("Critical"), contains("long")) %>%
     mutate(across(-Date, as.double))
 }
 
@@ -31,7 +50,8 @@ get_england <- function(d) {
 
 # - Get England bed occupancy data -
 eng_beds <- bind_rows(
-  get_england(sitrep2021),
+  get_england(sitrep2122, TRUE),
+  get_england(sitrep2021, TRUE),
   get_england(sitrep1920),
   get_england(sitrep1819),
   get_england(sitrep1718),
@@ -40,17 +60,25 @@ eng_beds <- bind_rows(
 )
 
 # - Summarise bed occupancies by day/month -
-eng_2021 <- eng_beds %>%
-  filter(Date >= dmy("01-11-2020")) %>%
+eng_2122 <- eng_beds %>%
+  filter(Date >= dmy("01-11-2021") & Date <= dmy("01-05-2022")) %>%
   mutate(day_of_year = as.Date(Date))
+
+eng_2021 <- eng_beds %>%
+  filter(Date >= dmy("01-11-2020") & Date <= dmy("01-05-2021")) %>%
+
+  # Set all dates to be in one year so this historical data overlays the 2021-22 data
+  mutate(day_of_year = if_else(month(Date) >= 11,
+                               as.Date(paste("2021", month(Date), mday(Date), sep = "-")),
+                               as.Date(paste("2022", month(Date), mday(Date), sep = "-"))))
 
 eng_hist_sum <- eng_beds %>%
   filter(Date < dmy("01-11-2020")) %>%
 
-  # Set all dates to be in one year so this historical data overlays the 2020-21 data
+  # Set all dates to be in one year so this historical data overlays the 2021-22 data
   mutate(day_of_year = if_else(month(Date) >= 11,
-                               as.Date(paste("2020", month(Date), mday(Date), sep = "-")),
-                               as.Date(paste("2021", month(Date), mday(Date), sep = "-")))) %>%
+                               as.Date(paste("2021", month(Date), mday(Date), sep = "-")),
+                               as.Date(paste("2022", month(Date), mday(Date), sep = "-")))) %>%
 
   group_by(day_of_year) %>%
   summarise(`Median occupancy rate` = median(`Occupancy rate`),
@@ -61,9 +89,9 @@ eng_hist_sum <- eng_beds %>%
             `Max critical care beds occupancy rate` = max(`Critical care beds occupancy rate`),
             `Min critical care beds occupancy rate` = min(`Critical care beds occupancy rate`),
 
-            `Median no. beds occupied by long-stay patients (> 7 days)` = median(`No. beds  occupied by long-stay patients (> 7 days)`),
-            `Max no. beds occupied by long-stay patients (> 7 days)` = max(`No. beds  occupied by long-stay patients (> 7 days)`),
-            `Min no. beds occupied by long-stay patients (> 7 days)` = min(`No. beds  occupied by long-stay patients (> 7 days)`),
+            `Median no. beds occupied by long-stay patients (> 7 days)` = median(`No. beds occupied by long-stay patients (> 7 days)`),
+            `Max no. beds occupied by long-stay patients (> 7 days)` = max(`No. beds occupied by long-stay patients (> 7 days)`),
+            `Min no. beds occupied by long-stay patients (> 7 days)` = min(`No. beds occupied by long-stay patients (> 7 days)`),
 
             `Median no. beds occupied by long-stay patients (> 21 days)` = median(`No. beds occupied by long-stay patients (> 21 days)`),
             `Max no. beds occupied by long-stay patients (> 21 days)` = max(`No. beds occupied by long-stay patients (> 21 days)`),
@@ -74,12 +102,13 @@ eng_hist_sum <- eng_beds %>%
 get_trusts <- function(d) {
   d %>%
     filter(!str_detect(Name, "ENGLAND")) %>%
-    select(Date, Name, `Occupancy rate`, contains("Critical"), contains("long")) %>%
+    select(Date, Name, `Occupancy rate`, starts_with("G&A"), contains("Critical"), contains("long")) %>%
     mutate(across(-c(Date, Name), as.double))
 }
 
 # - Get Trust bed occupancy data -
 trust_beds <- bind_rows(
+  get_trusts(sitrep2122),
   get_trusts(sitrep2021),
   get_trusts(sitrep1920),
   get_trusts(sitrep1819),
@@ -89,17 +118,26 @@ trust_beds <- bind_rows(
 )
 
 # - Summarise bed occupancies by Trust and day/month -
-trust_2021 <- trust_beds %>%
-  filter(Date >= dmy("01-11-2020")) %>%
+trust_2122 <- trust_beds %>%
+  filter(Date >= dmy("01-11-2021") & Date <= dmy("01-05-2022")) %>%
   mutate(day_of_year = as.Date(Date))
+
+trust_2021 <- trust_beds %>%
+  filter(Date >= dmy("01-11-2020") & Date <= dmy("01-05-2021")) %>%
+
+  # Set all dates to be in one year so this historical data overlays the 2021-22 data
+  mutate(day_of_year = if_else(month(Date) >= 11,
+                               as.Date(paste("2021", month(Date), mday(Date), sep = "-")),
+                               as.Date(paste("2022", month(Date), mday(Date), sep = "-"))))
+
 
 trust_hist_sum <- trust_beds %>%
   filter(Date < dmy("01-11-2020")) %>%
 
   # Set all dates to be in one year so this historical data overlays the 2020-21 data
   mutate(day_of_year = if_else(month(Date) >= 11,
-                               as.Date(paste("2020", month(Date), mday(Date), sep = "-")),
-                               as.Date(paste("2021", month(Date), mday(Date), sep = "-")))) %>%
+                               as.Date(paste("2021", month(Date), mday(Date), sep = "-")),
+                               as.Date(paste("2022", month(Date), mday(Date), sep = "-")))) %>%
 
   group_by(day_of_year, Name) %>%
   summarise(`Median occupancy rate` = median(`Occupancy rate`),
@@ -110,22 +148,26 @@ trust_hist_sum <- trust_beds %>%
             `Max critical care beds occupancy rate` = max(`Critical care beds occupancy rate`),
             `Min critical care beds occupancy rate` = min(`Critical care beds occupancy rate`),
 
-            `Median no. beds occupied by long-stay patients (> 7 days)` = median(`No. beds  occupied by long-stay patients (> 7 days)`),
-            `Max no. beds occupied by long-stay patients (> 7 days)` = max(`No. beds  occupied by long-stay patients (> 7 days)`),
-            `Min no. beds occupied by long-stay patients (> 7 days)` = min(`No. beds  occupied by long-stay patients (> 7 days)`),
+            `Median no. beds occupied by long-stay patients (> 7 days)` = median(`No. beds occupied by long-stay patients (> 7 days)`),
+            `Max no. beds occupied by long-stay patients (> 7 days)` = max(`No. beds occupied by long-stay patients (> 7 days)`),
+            `Min no. beds occupied by long-stay patients (> 7 days)` = min(`No. beds occupied by long-stay patients (> 7 days)`),
 
             `Median no. beds occupied by long-stay patients (> 21 days)` = median(`No. beds occupied by long-stay patients (> 21 days)`),
             `Max no. beds occupied by long-stay patients (> 21 days)` = max(`No. beds occupied by long-stay patients (> 21 days)`),
             `Min no. beds occupied by long-stay patients (> 21 days)` = min(`No. beds occupied by long-stay patients (> 21 days)`))
 
 # ---- Save data ----
+write_csv(eng_2122, "data/england-2021-22.csv")
 write_csv(eng_2021, "data/england-2020-21.csv")
 write_csv(eng_hist_sum, "data/england-historical.csv")
+write_csv(trust_2122, "data/trusts-2021-22.csv")
 write_csv(trust_2021, "data/trusts-2020-21.csv")
 write_csv(trust_hist_sum, "data/trusts-historical.csv")
 
+write_feather(eng_2122,       "data/england-2021-22.feather", compression = "uncompressed")
 write_feather(eng_2021,       "data/england-2020-21.feather", compression = "uncompressed")
 write_feather(eng_hist_sum,   "data/england-historical.feather", compression = "uncompressed")
+write_feather(trust_2122,     "data/trusts-2021-22.feather", compression = "uncompressed")
 write_feather(trust_2021,     "data/trusts-2020-21.feather", compression = "uncompressed")
 write_feather(trust_hist_sum, "data/trusts-historical.feather", compression = "uncompressed")
 
