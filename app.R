@@ -23,9 +23,13 @@ ui <- fluidPage(
 
             radioButtons("eng_or_trusts", "Show data for England or for individual Trusts?", choices = c("England", "Trusts")),
 
-            selectInput("trust_name", "Select a Trust", sort(trust_2122$Name), selected = sort(trust_2122$Name)[1], multiple = FALSE),
+            conditionalPanel(
+              condition = "input.eng_or_trusts == 'Trusts'",
 
-            radioButtons("trust_comparison", "Compare this Trust to...", choices = c("Itself historically", "Other Trusts this year", "England averages"))
+              selectizeInput("trust_name", "Select a Trust", sort(trust_2122$Name), selected = sort(trust_2122$Name)[1], multiple = FALSE),
+
+              radioButtons("trust_comparison", "Compare this Trust to...", choices = c("Itself historically", "Other Trusts this year", "England averages"))
+            )
         ),
 
         mainPanel(
