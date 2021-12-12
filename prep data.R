@@ -85,6 +85,14 @@ eng_hist_sum <- eng_beds %>%
             `Max occupancy rate` = max(`Occupancy rate`),
             `Min occupancy rate` = min(`Occupancy rate`),
 
+            `Median beds open` = median(`G&A Beds Open`, na.rm = TRUE),
+            `Max beds open` = max(`G&A Beds Open`, na.rm = TRUE),
+            `Min beds open` = min(`G&A Beds Open`, na.rm = TRUE),
+
+            `Median beds occupied` = median(`G&A beds occ'd`, na.rm = TRUE),
+            `Max beds occupied` = max(`G&A beds occ'd`, na.rm = TRUE),
+            `Min beds occupied` = min(`G&A beds occ'd`, na.rm = TRUE),
+
             `Median critical care beds occupancy rate` = median(`Critical care beds occupancy rate`),
             `Max critical care beds occupancy rate` = max(`Critical care beds occupancy rate`),
             `Min critical care beds occupancy rate` = min(`Critical care beds occupancy rate`),
@@ -143,6 +151,14 @@ trust_hist_sum <- trust_beds %>%
   summarise(`Median occupancy rate` = median(`Occupancy rate`),
             `Max occupancy rate` = max(`Occupancy rate`),
             `Min occupancy rate` = min(`Occupancy rate`),
+
+            `Median beds open` = median(`G&A Beds Open`, na.rm = TRUE),
+            `Max beds open` = max(`G&A Beds Open`, na.rm = TRUE),
+            `Min beds open` = min(`G&A Beds Open`, na.rm = TRUE),
+
+            `Median beds occupied` = median(`G&A beds occ'd`, na.rm = TRUE),
+            `Max beds occupied` = max(`G&A beds occ'd`, na.rm = TRUE),
+            `Min beds occupied` = min(`G&A beds occ'd`, na.rm = TRUE),
 
             `Median critical care beds occupancy rate` = median(`Critical care beds occupancy rate`),
             `Max critical care beds occupancy rate` = max(`Critical care beds occupancy rate`),

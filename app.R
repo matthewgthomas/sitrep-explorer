@@ -11,15 +11,35 @@ trust_2122 = read_feather("data/trusts-2021-22.feather")
 trust_2021 = read_feather("data/trusts-2020-21.feather")
 trust_hist_sum = read_feather("data/trusts-historical.feather")
 
-# Define UI for application that draws a histogram
+# ---- Pre-wrangle bed occupancy (count) data ----
+beds_eng_2122 <- eng_2122 %>%
+  select(day_of_year, `Beds occupied` = `G&A beds occ'd`, `Beds open` = `G&A Beds Open`) %>%
+  pivot_longer(cols = -day_of_year)
+
+beds_eng_2021 <- eng_2021 %>%
+  select(day_of_year, `Beds occupied` = `G&A beds occ'd`, `Beds open` = `G&A Beds Open`) %>%
+  pivot_longer(cols = -day_of_year)
+
+beds_eng_hist <- eng_hist_sum %>%
+  select(day_of_year, `Beds occupied` = `Median beds occupied`, `Beds open` = `Median beds open`) %>%
+  pivot_longer(cols = -day_of_year)
+
+# ---- UI ----
 ui <- fluidPage(
 
     titlePanel("NHS England winter situation report explorer"),
 
     sidebarLayout(
         sidebarPanel(
-            radioButtons("indicator", "Select an indicator",
-                         choices = c("Critical care bed occupancy", "General & acute bed occupancy")),
+            selectizeInput(
+              "indicator",
+              "Select an indicator",
+              choices = c(
+                "Critical care bed occupancy",
+                "General & acute bed occupancy (rates)",
+                "General & acute bed occupancy (counts)"
+              )
+            ),
 
             radioButtons("eng_or_trusts", "Show data for England or for individual Trusts?", choices = c("England", "Trusts")),
 
@@ -66,7 +86,7 @@ server <- function(input, output) {
             trust_2021 <- trust_2021 %>%
                 mutate(Indicator = `Critical care beds occupancy rate`)
 
-        } else if (input$indicator == "General & acute bed occupancy") {
+        } else if (input$indicator == "General & acute bed occupancy (rates)") {
             eng_hist_sum <- eng_hist_sum %>%
                 mutate(Indicator = `Median occupancy rate`,
                        Indicator_max = `Max occupancy rate`,
@@ -88,6 +108,31 @@ server <- function(input, output) {
 
             trust_2021 <- trust_2021 %>%
                 mutate(Indicator = `Occupancy rate`)
+
+        } else if (input$indicator == "General & acute bed occupancy (counts)") {
+          eng_hist_sum <- eng_hist_sum %>%
+            mutate(Indicator = `Median occupancy rate`,
+                   Indicator_max = `Max occupancy rate`,
+                   Indicator_min = `Min occupancy rate`)
+
+          beds_eng_2122 <- eng_2122 %>%
+            select(Date, `Beds occupied` = `G&A beds occ'd`, `Beds open` = `G&A Beds Open`) %>%
+            pivot_longer(cols = -Date)
+            mutate(Indicator = `Occupancy rate`)
+
+          eng_2021 <- eng_2021 %>%
+            mutate(Indicator = `Occupancy rate`)
+
+          trust_hist_sum <- trust_hist_sum %>%
+            mutate(Indicator = `Median occupancy rate`,
+                   Indicator_max = `Max occupancy rate`,
+                   Indicator_min = `Min occupancy rate`)
+
+          trust_2122 <- trust_2122 %>%
+            mutate(Indicator = `Occupancy rate`)
+
+          trust_2021 <- trust_2021 %>%
+            mutate(Indicator = `Occupancy rate`)
 
         }
 
