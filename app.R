@@ -57,7 +57,8 @@ ui <- fluidPage(
               choices = c(
                 "Critical care bed occupancy",
                 "General & acute bed occupancy (rates)",
-                "General & acute bed occupancy (counts)"
+                "General & acute bed occupancy (counts)",
+                "Beds occupied by long-stay patients (> 21 days)"
               )
             ),
 
@@ -132,12 +133,35 @@ server <- function(input, output) {
         } else if (input$indicator == "General & acute bed occupancy (counts)") {
           # Nothing to do here - we pre-calculated this data at the top of this script
 
+        } else if (input$indicator == "Beds occupied by long-stay patients (> 21 days)") {
+          eng_hist_sum <- eng_hist_sum %>%
+            mutate(Indicator = `Median no. beds occupied by long-stay patients (> 21 days)`,
+                   Indicator_max = 0,
+                   Indicator_min = 0)
+
+          eng_2122 <- eng_2122 %>%
+            mutate(Indicator = `No. beds occupied by long-stay patients (> 21 days)`)
+
+          eng_2021 <- eng_2021 %>%
+            mutate(Indicator = `No. beds occupied by long-stay patients (> 21 days)`)
+
+          trust_hist_sum <- trust_hist_sum %>%
+            mutate(Indicator = `Median no. beds occupied by long-stay patients (> 21 days)`,
+                   Indicator_max = NA,
+                   Indicator_min = NA)
+
+          trust_2122 <- trust_2122 %>%
+            mutate(Indicator = `No. beds occupied by long-stay patients (> 21 days)`)
+
+          trust_2021 <- trust_2021 %>%
+            mutate(Indicator = `No. beds occupied by long-stay patients (> 21 days)`)
+
         }
 
         # Draw plots
         if (input$eng_or_trusts == "England") {
 
-          if (input$indicator != "General & acute bed occupancy (counts)") {
+          if (input$indicator != "General & acute bed occupancy (counts)" & input$indicator != "Beds occupied by long-stay patients (> 21 days)") {
 
             # Plot line graphs for England
             eng_hist_sum %>%
@@ -156,6 +180,27 @@ server <- function(input, output) {
                      x = NULL, y = paste0(input$indicator, " rate"),
                      caption = "Source: BRC/I&I analysis of NHSE data") +
                 theme_classic()
+
+          } else if (input$indicator == "Beds occupied by long-stay patients (> 21 days)") {
+
+            eng_hist_sum %>%
+              ggplot(aes(x = day_of_year, y = Indicator, group = 1)) +
+
+              geom_line(colour = "grey", size = 1.1) +
+              geom_line(data = eng_2021, colour = "black", size = 1.1) +
+              geom_line(data = eng_2122, colour = "red", size = 1.1) +
+
+              scale_y_continuous(labels = scales::comma) +
+              scale_x_date(date_breaks = "1 month", date_minor_breaks = "1 week", date_labels = "%B") +
+
+              labs(
+                title = paste0(input$indicator, " in England"),
+                subtitle = "Red line shows data for 2021-22; black line is 2020-21; grey line is 2019-20",
+                x = NULL,
+                y = input$indicator,
+                caption = "Source: BRC/I&I analysis of NHSE data"
+              ) +
+              theme_classic()
 
           } else if (input$indicator == "General & acute bed occupancy (counts)") {
             # Plot bar graphs for bed occupancy counts
