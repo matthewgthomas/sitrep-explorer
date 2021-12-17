@@ -6,15 +6,23 @@ library(ggplot2)
 library(patchwork)
 library(shinycssloaders)
 
-eng_2122 <- read_feather("data/england-2021-22.feather")
-eng_2021 <- read_feather("data/england-2020-21.feather")
-eng_hist_sum <- read_feather("data/england-historical.feather")
-trust_2122 <- read_feather("data/trusts-2021-22.feather")
-trust_2021 <- read_feather("data/trusts-2020-21.feather")
-trust_hist_sum <- read_feather("data/trusts-historical.feather")
+# eng_2122 <- read_feather("data/england-2021-22.feather")
+# eng_2021 <- read_feather("data/england-2020-21.feather")
+# eng_hist_sum <- read_feather("data/england-historical.feather")
+# trust_2122 <- read_feather("data/trusts-2021-22.feather")
+# trust_2021 <- read_feather("data/trusts-2020-21.feather")
+# trust_hist_sum <- read_feather("data/trusts-historical.feather")
 
 england <- read_feather("data/england.feather")
 trusts <- read_feather("data/trusts.feather")
+
+trust_names <-
+  trusts %>%
+  filter(year == "2021-22") %>%
+  select(Name) %>%
+  distinct() %>%
+  arrange(Name) %>%
+  pull(Name)
 
 # Set colours
 england <-
@@ -35,42 +43,50 @@ england <-
 
 trusts <-
   trusts %>%
-  mutate(colour = case_when(
-    year == "2021-22" ~ "red",
-    year == "2020-21" ~ "black",
-    TRUE ~ "grey"
-  ))
+  mutate(`Occupancy rate` = `G&A beds occ'd` / `G&A Beds Open`) %>%
+  mutate(
+    opacity = case_when(
+      year == "2021-22" ~ 1,
+      year == "2020-21" ~ 1,
+      TRUE ~ 0.9
+    ),
+    colour = case_when(
+      year == "2021-22" ~ "red",
+      year == "2020-21" ~ "black",
+      TRUE ~ "grey"
+    )
+  )
 
 # ---- Pre-wrangle bed occupancy (count) data ----
-beds_eng_2122 <- eng_2122 %>%
-  mutate(`Beds free` = `G&A Beds Open` - `G&A beds occ'd`) %>%
-  select(day_of_year, `Beds occupied` = `G&A beds occ'd`, `Beds free`) %>%
-  pivot_longer(cols = -day_of_year)
-
-beds_eng_2021 <- eng_2021 %>%
-  mutate(`Beds free` = `G&A Beds Open` - `G&A beds occ'd`) %>%
-  select(day_of_year, `Beds occupied` = `G&A beds occ'd`, `Beds free`) %>%
-  pivot_longer(cols = -day_of_year)
-
-beds_eng_hist <- eng_hist_sum %>%
-  mutate(`Beds free` = `Median beds open` - `Median beds occupied`) %>%
-  select(day_of_year, `Beds occupied` = `Median beds occupied`, `Beds free`) %>%
-  pivot_longer(cols = -day_of_year)
-
-beds_trust_2122 <- trust_2122 %>%
-  mutate(`Beds free` = `G&A Beds Open` - `G&A beds occ'd`) %>%
-  select(day_of_year, Name, `Beds occupied` = `G&A beds occ'd`, `Beds free`) %>%
-  pivot_longer(cols = -c(day_of_year, Name))
-
-beds_trust_2021 <- trust_2021 %>%
-  mutate(`Beds free` = `G&A Beds Open` - `G&A beds occ'd`) %>%
-  select(day_of_year, Name, `Beds occupied` = `G&A beds occ'd`, `Beds free`) %>%
-  pivot_longer(cols = -c(day_of_year, Name))
-
-beds_trust_hist <- trust_hist_sum %>%
-  mutate(`Beds free` = `Median beds open` - `Median beds occupied`) %>%
-  select(day_of_year, `Beds occupied` = `Median beds occupied`, `Beds free`) %>%
-  pivot_longer(cols = -day_of_year)
+# beds_eng_2122 <- eng_2122 %>%
+#   mutate(`Beds free` = `G&A Beds Open` - `G&A beds occ'd`) %>%
+#   select(day_of_year, `Beds occupied` = `G&A beds occ'd`, `Beds free`) %>%
+#   pivot_longer(cols = -day_of_year)
+#
+# beds_eng_2021 <- eng_2021 %>%
+#   mutate(`Beds free` = `G&A Beds Open` - `G&A beds occ'd`) %>%
+#   select(day_of_year, `Beds occupied` = `G&A beds occ'd`, `Beds free`) %>%
+#   pivot_longer(cols = -day_of_year)
+#
+# beds_eng_hist <- eng_hist_sum %>%
+#   mutate(`Beds free` = `Median beds open` - `Median beds occupied`) %>%
+#   select(day_of_year, `Beds occupied` = `Median beds occupied`, `Beds free`) %>%
+#   pivot_longer(cols = -day_of_year)
+#
+# beds_trust_2122 <- trust_2122 %>%
+#   mutate(`Beds free` = `G&A Beds Open` - `G&A beds occ'd`) %>%
+#   select(day_of_year, Name, `Beds occupied` = `G&A beds occ'd`, `Beds free`) %>%
+#   pivot_longer(cols = -c(day_of_year, Name))
+#
+# beds_trust_2021 <- trust_2021 %>%
+#   mutate(`Beds free` = `G&A Beds Open` - `G&A beds occ'd`) %>%
+#   select(day_of_year, Name, `Beds occupied` = `G&A beds occ'd`, `Beds free`) %>%
+#   pivot_longer(cols = -c(day_of_year, Name))
+#
+# beds_trust_hist <- trust_hist_sum %>%
+#   mutate(`Beds free` = `Median beds open` - `Median beds occupied`) %>%
+#   select(day_of_year, `Beds occupied` = `Median beds occupied`, `Beds free`) %>%
+#   pivot_longer(cols = -day_of_year)
 
 beds_england <- england %>%
   mutate(`Beds free` = `G&A Beds Open` - `G&A beds occ'd`) %>%
@@ -94,9 +110,21 @@ beds_trusts <- trusts %>%
   select(year, day_of_year, Name, `Beds occupied` = `G&A beds occ'd`, `Beds free`) %>%
   pivot_longer(cols = -c(year, day_of_year, Name))
 
+beds_trusts_2122 <- beds_trusts %>%
+  filter(year == "2021-22")
+
+beds_trusts_2021 <- beds_trusts %>%
+  filter(year == "2020-21")
+
+beds_trusts_historical <- beds_trusts %>%
+  filter(!year %in% c("2021-22", "2020-21")) %>%
+  group_by(Name, name, day_of_year) %>%
+  summarise(value = median(value)) %>%
+  ungroup()
+
 
 # ---- Plot functions ----
-plot_trends <- function(d, indicator, indicator_name, plotting_rates = TRUE) {
+plot_trends <- function(d, indicator, indicator_name, trust_name = NULL, plotting_rates = TRUE) {
   # Get years for grey lines
   year_range <-
     d %>%
@@ -110,10 +138,12 @@ plot_trends <- function(d, indicator, indicator_name, plotting_rates = TRUE) {
 
   year_text <- ""
 
-  if (length(year_range) == 1) {
-    year_text <- paste0("in ", year_range)
+  num_years <- length(year_range)
+
+  if (num_years == 1) {
+    year_text <- paste0("grey line is ", year_range)
   } else {
-    year_text <- paste0("between ", year_range[length(year_range)], " and ", year_range[1])
+    year_text <- paste0("grey lines are between ", year_range[num_years], " and ", year_range[1])
   }
 
   # Set y axis limit to 100% if plotting rates
@@ -127,6 +157,7 @@ plot_trends <- function(d, indicator, indicator_name, plotting_rates = TRUE) {
     y_axis_format <- scales::comma
   }
 
+  place <- ifelse(is.null(trust_name), "England", trust_name)
 
   d %>%
     ggplot(aes(x = day_of_year, y = {{ indicator }}, group = year)) +
@@ -136,11 +167,11 @@ plot_trends <- function(d, indicator, indicator_name, plotting_rates = TRUE) {
     scale_y_continuous(labels = y_axis_format, limits = y_limits) +
     scale_x_date(date_breaks = "1 month", date_minor_breaks = "1 week", date_labels = "%B") +
 
-    scale_color_manual(values = c(rep("grey", 5), "black", "red")) +
+    scale_color_manual(values = c(rep("grey", num_years), "black", "red")) +
 
     labs(
-      title = paste0(indicator_name, " in England"),
-      subtitle = paste0("Red line shows rates in 2021-22; back lines are rates in 2020-21; grey lines show rates ", year_text),
+      title = paste0(indicator_name, " in ", place),
+      subtitle = paste0("Red line is 2021-22; black line is 2020-21; ", year_text),
       x = NULL,
       y = indicator_name,
       caption = "Source: BRC/I&I analysis of NHSE data"
@@ -148,14 +179,33 @@ plot_trends <- function(d, indicator, indicator_name, plotting_rates = TRUE) {
     theme_classic()
 }
 
-plot_counts <- function() {
+plot_counts <- function(trust_name = NULL) {
+  # Set up dataframes to use for plotting
+  d_2122 <- NULL
+  d_2021 <- NULL
+  d_hist <- NULL
+
+  if (is.null(trust_name)) {
+    d_2122 <- beds_england_2122
+    d_2021 <- beds_england_2021
+    d_hist <- beds_england_historical
+
+  } else {
+    d_2122 <- beds_trusts_2122 %>% filter(Name == trust_name)
+    d_2021 <- beds_trusts_2021 %>% filter(Name == trust_name)
+    d_hist <- beds_trusts_historical %>% filter(Name == trust_name)
+
+  }
+
+  max_beds <- max(max(d_2122$value), max(d_2021$value), max(d_hist$value))
+
   # Plot bar graphs for bed occupancy counts
   plt_beds_2122 <-
-    beds_england_2122 %>%
+    d_2122 %>%
     ggplot(aes(x = day_of_year, y = value, fill = name)) +
     geom_col(show.legend = FALSE) +
 
-    scale_y_continuous(labels = scales::comma, limits = c(0, 100000)) +
+    scale_y_continuous(labels = scales::comma, limits = c(0, max_beds)) +
 
     labs(
       title = " ",
@@ -169,11 +219,11 @@ plot_counts <- function() {
     theme(legend.position = "bottom")
 
   plt_beds_2021 <-
-    beds_england_2021 %>%
+    d_2021 %>%
     ggplot(aes(x = day_of_year, y = value, fill = name)) +
     geom_col() +
 
-    scale_y_continuous(labels = scales::comma, limits = c(0, 100000)) +
+    scale_y_continuous(labels = scales::comma, limits = c(0, max_beds)) +
 
     labs(
       title = " ",
@@ -187,11 +237,11 @@ plot_counts <- function() {
     theme(legend.position = "bottom")
 
   plt_beds_hist <-
-    beds_england_historical %>%
+    d_hist %>%
     ggplot(aes(x = day_of_year, y = value, fill = name)) +
     geom_col(show.legend = FALSE) +
 
-    scale_y_continuous(labels = scales::comma, limits = c(0, 100000)) +
+    scale_y_continuous(labels = scales::comma, limits = c(0, max_beds)) +
 
     labs(
       title = " ",
@@ -206,6 +256,7 @@ plot_counts <- function() {
 
   plt_beds_2122 +plt_beds_2021 + plt_beds_hist
 }
+
 
 # ---- UI ----
 ui <- fluidPage(
@@ -231,7 +282,7 @@ ui <- fluidPage(
             conditionalPanel(
               condition = "input.eng_or_trusts == 'Trusts'",
 
-              selectizeInput("trust_name", "Select a Trust", sort(trust_2122$Name), selected = sort(trust_2122$Name)[1], multiple = FALSE),
+              selectizeInput("trust_name", "Select a Trust", trust_names, selected = trust_names[1], multiple = FALSE),
 
               radioButtons("trust_comparison", "Compare this Trust to...", choices = c("Itself historically", "Other Trusts this year", "England averages"))
             )
@@ -247,6 +298,11 @@ ui <- fluidPage(
 server <- function(input, output) {
 
     output$plot <- renderPlot({
+
+      ##
+      ## Plots for England
+      ##
+
       if (input$eng_or_trusts == "England" & input$indicator == "Critical care bed occupancy (rates)") {
 
         england %>%
@@ -270,6 +326,40 @@ server <- function(input, output) {
 
         england %>%
           plot_trends(`No. beds occupied by long-stay patients (> 7 days)`, indicator_name = input$indicator, plotting_rates = FALSE)
+
+
+      ##
+      ## Plots for Trusts
+      ##
+
+      } else if (input$eng_or_trusts == "Trusts" & input$indicator == "Critical care bed occupancy (rates)") {
+
+        trusts %>%
+          filter(Name == input$trust_name) %>%
+          plot_trends(`Critical care beds occupancy rate`, indicator_name = input$indicator, trust_name = input$trust_name)
+
+      } else if (input$eng_or_trusts == "Trusts" & input$indicator == "General & acute bed occupancy (rates)") {
+
+        trusts %>%
+          filter(Name == input$trust_name) %>%
+          plot_trends(`Occupancy rate`, indicator_name = input$indicator, trust_name = input$trust_name)
+
+      } else if (input$eng_or_trusts == "Trusts" & input$indicator == "General & acute bed occupancy (counts)") {
+
+        plot_counts(trust_name = input$trust_name)
+
+      } else if (input$eng_or_trusts == "Trusts" & input$indicator == "Beds occupied by long-stay patients (> 7 days)") {
+
+        trusts %>%
+          filter(Name == input$trust_name) %>%
+          plot_trends(`No. beds occupied by long-stay patients (> 21 days)`, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
+
+      } else if (input$eng_or_trusts == "Trusts" & input$indicator == "Beds occupied by long-stay patients (> 21 days)") {
+
+        trusts %>%
+          filter(Name == input$trust_name) %>%
+          plot_trends(`No. beds occupied by long-stay patients (> 7 days)`, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
+
 
       } # end if
     })
