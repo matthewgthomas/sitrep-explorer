@@ -435,6 +435,10 @@ server <- function(input, output) {
         trusts %>%
           plot_trust_comparison_trends(`No. beds occupied by long-stay patients (> 21 days)`, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
 
+      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages") {
+
+        empty_graph
+
       } # end if
     })
 }
