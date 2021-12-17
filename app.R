@@ -257,6 +257,56 @@ plot_counts <- function(trust_name = NULL) {
   plt_beds_2122 +plt_beds_2021 + plt_beds_hist
 }
 
+plot_trust_comparison_trends <- function(d, indicator, indicator_name, trust_name, this_year = "2021-22", plotting_rates = TRUE) {
+  # this_trust <-
+  #   trusts %>%
+  #   filter(Name == trust_name & year == year)
+  #
+  # other_trusts <-
+  #   trusts %>%
+  #   filter(Name != trust_name & year == year)
+
+  # Set y axis limit to 100% if plotting rates
+  y_axis_format <- NULL
+  y_limits <- NULL
+
+  if (plotting_rates) {
+    y_axis_format <- scales::percent
+    y_limits <- c(NA, 1)
+  } else {
+    y_axis_format <- scales::comma
+  }
+
+  ggplot() +
+    geom_line(data = d %>% filter(Name != trust_name & year == this_year),
+              aes(x = day_of_year, y = {{ indicator }}, group = Name),
+              colour = "grey", alpha = 0.7) +
+
+    geom_line(data = d %>% filter(Name == trust_name & year == this_year),
+              aes(x = day_of_year, y = {{ indicator }}),
+              colour = "red", size = 1.1) +
+
+    scale_y_continuous(labels = y_axis_format, limits = y_limits) +
+    scale_x_date(date_breaks = "1 month", date_minor_breaks = "1 week", date_labels = "%B") +
+
+    labs(
+      title = paste0(indicator_name, " in ", trust_name, " compared to other Trusts"),
+      subtitle = "Red line shows rates for this Trust; grey lines show other Trusts",
+      x = NULL,
+      y = indicator_name,
+      caption = "Source: BRC/I&I analysis of NHSE data"
+    ) +
+    theme_classic()
+}
+
+empty_graph <-
+  ggplot() +
+  annotate("text",
+           x = 1,
+           y = 1,
+           size = 8,
+           label = "Graph not currently available.") +
+  theme_void()
 
 # ---- UI ----
 ui <- fluidPage(
@@ -331,35 +381,59 @@ server <- function(input, output) {
       ##
       ## Plots for Trusts
       ##
-
-      } else if (input$eng_or_trusts == "Trusts" & input$indicator == "Critical care bed occupancy (rates)") {
+      # - Comparison with itself historically -
+      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Itself historically" & input$indicator == "Critical care bed occupancy (rates)") {
 
         trusts %>%
           filter(Name == input$trust_name) %>%
           plot_trends(`Critical care beds occupancy rate`, indicator_name = input$indicator, trust_name = input$trust_name)
 
-      } else if (input$eng_or_trusts == "Trusts" & input$indicator == "General & acute bed occupancy (rates)") {
+      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Itself historically" & input$indicator == "General & acute bed occupancy (rates)") {
 
         trusts %>%
           filter(Name == input$trust_name) %>%
           plot_trends(`Occupancy rate`, indicator_name = input$indicator, trust_name = input$trust_name)
 
-      } else if (input$eng_or_trusts == "Trusts" & input$indicator == "General & acute bed occupancy (counts)") {
+      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Itself historically" & input$indicator == "General & acute bed occupancy (counts)") {
 
         plot_counts(trust_name = input$trust_name)
 
-      } else if (input$eng_or_trusts == "Trusts" & input$indicator == "Beds occupied by long-stay patients (> 7 days)") {
+      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Itself historically" & input$indicator == "Beds occupied by long-stay patients (> 7 days)") {
 
         trusts %>%
           filter(Name == input$trust_name) %>%
           plot_trends(`No. beds occupied by long-stay patients (> 21 days)`, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
 
-      } else if (input$eng_or_trusts == "Trusts" & input$indicator == "Beds occupied by long-stay patients (> 21 days)") {
+      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Itself historically" & input$indicator == "Beds occupied by long-stay patients (> 21 days)") {
 
         trusts %>%
           filter(Name == input$trust_name) %>%
           plot_trends(`No. beds occupied by long-stay patients (> 7 days)`, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
 
+      # - Comparison with itself this year -
+      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Other Trusts this year" & input$indicator == "Critical care bed occupancy (rates)") {
+
+        trusts %>%
+          plot_trust_comparison_trends(`Critical care beds occupancy rate`, indicator_name = input$indicator, trust_name = input$trust_name)
+
+      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Other Trusts this year" & input$indicator == "General & acute bed occupancy (rates)") {
+
+        trusts %>%
+          plot_trust_comparison_trends(`Occupancy rate`, indicator_name = input$indicator, trust_name = input$trust_name)
+
+      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Other Trusts this year" & input$indicator == "General & acute bed occupancy (counts)") {
+
+        empty_graph
+
+      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Other Trusts this year" & input$indicator == "Beds occupied by long-stay patients (> 7 days)") {
+
+        trusts %>%
+          plot_trust_comparison_trends(`No. beds occupied by long-stay patients (> 7 days)`, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
+
+      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Other Trusts this year" & input$indicator == "Beds occupied by long-stay patients (> 21 days)") {
+
+        trusts %>%
+          plot_trust_comparison_trends(`No. beds occupied by long-stay patients (> 21 days)`, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
 
       } # end if
     })
