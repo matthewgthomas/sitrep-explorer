@@ -221,6 +221,7 @@ ui <- fluidPage(
                 "Critical care bed occupancy (rates)",
                 "General & acute bed occupancy (rates)",
                 "General & acute bed occupancy (counts)",
+                "Beds occupied by long-stay patients (> 7 days)",
                 "Beds occupied by long-stay patients (> 21 days)"
               )
             ),
@@ -260,10 +261,15 @@ server <- function(input, output) {
 
         plot_counts()
 
-      } else if (input$eng_or_trusts == "England" & input$indicator == "Beds occupied by long-stay patients (> 21 days)") {
+      } else if (input$eng_or_trusts == "England" & input$indicator == "Beds occupied by long-stay patients (> 7 days)") {
 
         england %>%
           plot_trends(`No. beds occupied by long-stay patients (> 21 days)`, indicator_name = input$indicator, plotting_rates = FALSE)
+
+      } else if (input$eng_or_trusts == "England" & input$indicator == "Beds occupied by long-stay patients (> 21 days)") {
+
+        england %>%
+          plot_trends(`No. beds occupied by long-stay patients (> 7 days)`, indicator_name = input$indicator, plotting_rates = FALSE)
 
       } # end if
     })
