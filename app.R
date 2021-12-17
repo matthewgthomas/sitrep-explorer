@@ -160,6 +160,9 @@ plot_trends <- function(d, indicator, indicator_name, trust_name = NULL, plottin
   place <- ifelse(is.null(trust_name), "England", trust_name)
 
   d %>%
+    select(day_of_year, year, colour, opacity, {{ indicator }}) %>%
+    na.omit() %>%
+
     ggplot(aes(x = day_of_year, y = {{ indicator }}, group = year)) +
 
     geom_line(aes(colour = year, alpha = opacity), size = 1.1, show.legend = FALSE) +
