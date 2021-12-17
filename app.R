@@ -299,6 +299,41 @@ plot_trust_comparison_trends <- function(d, indicator, indicator_name, trust_nam
     theme_classic()
 }
 
+plot_trust_england_comparison_trends <- function(d, indicator, indicator_name, trust_name, this_year = "2021-22", plotting_rates = TRUE) {
+  # Set y axis limit to 100% if plotting rates
+  y_axis_format <- NULL
+  y_limits <- NULL
+
+  if (plotting_rates) {
+    y_axis_format <- scales::percent
+    y_limits <- c(NA, 1)
+  } else {
+    y_axis_format <- scales::comma
+  }
+
+  england %>%
+    filter(year == this_year) %>%
+
+    ggplot(aes(x = day_of_year, y = {{ indicator }}, group = 1)) +
+
+    geom_line(colour = "grey", lty = 2, size = 1.1) +
+
+    geom_line(data = trusts %>% filter(Name == trust_name & year == this_year),
+              aes(y = {{ indicator }}), colour = "red", size = 1.1) +
+
+    scale_y_continuous(labels = y_axis_format) +
+    scale_x_date(date_breaks = "1 month", date_minor_breaks = "1 week", date_labels = "%B") +
+
+    labs(
+      title = paste0(indicator_name, " in ", trust_name, " compared to England as a whole"),
+      subtitle = paste0("Red line shows ", this_year, " rates for this Trust; grey line show England rate"),
+      x = NULL,
+      y = indicator_name,
+      caption = "Source: BRC/I&I analysis of NHSE data"
+    ) +
+    theme_classic()
+}
+
 empty_graph <-
   ggplot() +
   annotate("text",
@@ -352,7 +387,6 @@ server <- function(input, output) {
       ##
       ## Plots for England
       ##
-
       if (input$eng_or_trusts == "England" & input$indicator == "Critical care bed occupancy (rates)") {
 
         england %>%
@@ -376,7 +410,6 @@ server <- function(input, output) {
 
         england %>%
           plot_trends(`No. beds occupied by long-stay patients (> 7 days)`, indicator_name = input$indicator, plotting_rates = FALSE)
-
 
       ##
       ## Plots for Trusts
@@ -435,7 +468,25 @@ server <- function(input, output) {
         trusts %>%
           plot_trust_comparison_trends(`No. beds occupied by long-stay patients (> 21 days)`, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
 
-      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages") {
+      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "Critical care bed occupancy (rates)") {
+
+        england %>%
+          plot_trust_england_comparison_trends(`Critical care beds occupancy rate`, indicator_name = input$indicator, trust_name = input$trust_name)
+
+      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "General & acute bed occupancy (rates)") {
+
+        england %>%
+          plot_trust_england_comparison_trends(`Occupancy rate`, indicator_name = input$indicator, trust_name = input$trust_name)
+
+      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "General & acute bed occupancy (counts)") {
+
+        empty_graph
+
+      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "Beds occupied by long-stay patients (> 7 days)") {
+
+        empty_graph
+
+      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "Beds occupied by long-stay patients (> 21 days)") {
 
         empty_graph
 
