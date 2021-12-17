@@ -105,6 +105,24 @@ eng_hist_sum <- eng_beds %>%
             `Max no. beds occupied by long-stay patients (> 21 days)` = max(`No. beds occupied by long-stay patients (> 21 days)`),
             `Min no. beds occupied by long-stay patients (> 21 days)` = min(`No. beds occupied by long-stay patients (> 21 days)`))
 
+# Set all dates to be in one year so this historical data overlays the 2021-22 data on the graphs
+eng_beds <-
+  eng_beds %>%
+  mutate(
+    year = case_when(
+      Date >= dmy("01-11-2021") & Date <= dmy("01-05-2022") ~ "2021-22",
+      Date >= dmy("01-11-2020") & Date <= dmy("01-05-2021") ~ "2020-21",
+      Date >= dmy("01-11-2019") & Date <= dmy("01-05-2020") ~ "2019-20",
+      Date >= dmy("01-11-2018") & Date <= dmy("01-05-2019") ~ "2018-19",
+      Date >= dmy("01-11-2017") & Date <= dmy("01-05-2018") ~ "2017-18",
+      Date >= dmy("01-11-2016") & Date <= dmy("01-05-2017") ~ "2016-17",
+      Date >= dmy("01-11-2015") & Date <= dmy("01-05-2016") ~ "2015-16"
+    ),
+    day_of_year = if_else(month(Date) >= 11,
+                          as.Date(paste("2021", month(Date), mday(Date), sep = "-")),
+                          as.Date(paste("2022", month(Date), mday(Date), sep = "-")))
+  )
+
 # ---- Get Trust-level data ----
 # - Helper functions -
 get_trusts <- function(d) {
@@ -172,20 +190,42 @@ trust_hist_sum <- trust_beds %>%
             `Max no. beds occupied by long-stay patients (> 21 days)` = max(`No. beds occupied by long-stay patients (> 21 days)`),
             `Min no. beds occupied by long-stay patients (> 21 days)` = min(`No. beds occupied by long-stay patients (> 21 days)`))
 
+# Set all dates to be in one year so this historical data overlays the 2021-22 data on the graphs
+trust_beds <-
+  trust_beds %>%
+  mutate(
+    year = case_when(
+      Date >= dmy("01-11-2021") & Date <= dmy("01-05-2022") ~ "2021-22",
+      Date >= dmy("01-11-2020") & Date <= dmy("01-05-2021") ~ "2020-21",
+      Date >= dmy("01-11-2019") & Date <= dmy("01-05-2020") ~ "2019-20",
+      Date >= dmy("01-11-2018") & Date <= dmy("01-05-2019") ~ "2018-19",
+      Date >= dmy("01-11-2017") & Date <= dmy("01-05-2018") ~ "2017-18",
+      Date >= dmy("01-11-2016") & Date <= dmy("01-05-2017") ~ "2016-17",
+      Date >= dmy("01-11-2015") & Date <= dmy("01-05-2016") ~ "2015-16"
+    ),
+    day_of_year = if_else(month(Date) >= 11,
+                          as.Date(paste("2021", month(Date), mday(Date), sep = "-")),
+                          as.Date(paste("2022", month(Date), mday(Date), sep = "-")))
+  )
+
 # ---- Save data ----
 write_csv(eng_2122, "data/england-2021-22.csv")
 write_csv(eng_2021, "data/england-2020-21.csv")
 write_csv(eng_hist_sum, "data/england-historical.csv")
+write_csv(eng_beds, "data/england.csv")
 write_csv(trust_2122, "data/trusts-2021-22.csv")
 write_csv(trust_2021, "data/trusts-2020-21.csv")
 write_csv(trust_hist_sum, "data/trusts-historical.csv")
+write_csv(trust_beds, "data/trusts.csv")
 
 write_feather(eng_2122,       "data/england-2021-22.feather", compression = "uncompressed")
 write_feather(eng_2021,       "data/england-2020-21.feather", compression = "uncompressed")
 write_feather(eng_hist_sum,   "data/england-historical.feather", compression = "uncompressed")
+write_feather(eng_beds,       "data/england.feather", compression = "uncompressed")
 write_feather(trust_2122,     "data/trusts-2021-22.feather", compression = "uncompressed")
 write_feather(trust_2021,     "data/trusts-2020-21.feather", compression = "uncompressed")
 write_feather(trust_hist_sum, "data/trusts-historical.feather", compression = "uncompressed")
+write_feather(trust_beds,     "data/trusts.feather", compression = "uncompressed")
 
 # ---- Test plots ----
 # - Bed occupancy over time -
