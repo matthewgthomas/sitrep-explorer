@@ -37,7 +37,7 @@ get_england <- function(d, two_englands = FALSE) {
   }
 
   d %>%
-    select(Date, `Occupancy rate`, starts_with("G&A"), contains("Critical"), contains("long")) %>%
+    select(Date, `Occupancy rate`, starts_with("G&A"), contains("CC"), contains("Critical"), contains("long")) %>%
     mutate(across(-Date, as.double))
 }
 
@@ -48,7 +48,7 @@ get_england <- function(d, two_englands = FALSE) {
 #     mutate(MonthNameShort = factor(str_sub(MonthName, 1, 3), levels = str_sub(month.name[c(11, 12, 1:3)], 1, 3)))
 # }
 
-# - Get England bed occupancy data -
+# - Get all England data -
 england <- bind_rows(
   get_england(sitrep2122, TRUE),
   get_england(sitrep2021, TRUE),
@@ -59,7 +59,7 @@ england <- bind_rows(
   get_england(sitrep1516)
 )
 
-# - Summarise bed occupancies by day/month -
+# - Summarise by day/month -
 # eng_2122 <- england %>%
 #   filter(Date >= dmy("01-11-2021") & Date <= dmy("01-05-2022")) %>%
 #   mutate(day_of_year = as.Date(Date))
@@ -123,12 +123,41 @@ england <-
                           as.Date(paste("2022", month(Date), mday(Date), sep = "-")))
   )
 
+# - Bed occupancy counts -
+beds_england <- england %>%
+  mutate(
+    `Beds free` = `G&A Beds Open` - `G&A beds occ'd`,
+    `CC beds free` = `CC Adult Open` - `CC Adult Occ`
+  ) %>%
+  select(year, day_of_year, `Beds occupied` = `G&A beds occ'd`, `Beds free`, `CC beds occupied` = `CC Adult Occ`, `CC beds free`) %>%
+  pivot_longer(cols = -c(year, day_of_year))
+
+beds_england_2122 <- beds_england %>%
+  filter(year == "2021-22")
+
+beds_england_2021 <- beds_england %>%
+  filter(year == "2020-21")
+
+beds_england_historical <- beds_england %>%
+  filter(!year %in% c("2021-22", "2020-21")) %>%
+  group_by(name, day_of_year) %>%
+  summarise(value = median(value)) %>%
+  ungroup() %>%
+  mutate(year = "2015-16 to 2019-20")
+
+beds_england <- bind_rows(
+  beds_england_2122,
+  beds_england_2021,
+  beds_england_historical
+)
+
+
 # ---- Get Trust-level data ----
 # - Helper functions -
 get_trusts <- function(d) {
   d %>%
     filter(!str_detect(Name, "ENGLAND")) %>%
-    select(Date, Name, `Occupancy rate`, starts_with("G&A"), contains("Critical"), contains("long")) %>%
+    select(Date, Name, `Occupancy rate`, starts_with("G&A"), contains("CC"), contains("Critical"), contains("long")) %>%
     mutate(across(-c(Date, Name), as.double))
 }
 
@@ -208,21 +237,53 @@ trusts <-
                           as.Date(paste("2022", month(Date), mday(Date), sep = "-")))
   )
 
+# - Bed occupancy counts -
+beds_trusts <- trusts %>%
+  mutate(
+    `Beds free` = `G&A Beds Open` - `G&A beds occ'd`,
+    `CC beds free` = `CC Adult Open` - `CC Adult Occ`
+  ) %>%
+  select(year, day_of_year, Name, `Beds occupied` = `G&A beds occ'd`, `Beds free`, `CC beds occupied` = `CC Adult Occ`, `CC beds free`) %>%
+  pivot_longer(cols = -c(year, day_of_year, Name))
+
+beds_trusts_2122 <- beds_trusts %>%
+  filter(year == "2021-22")
+
+beds_trusts_2021 <- beds_trusts %>%
+  filter(year == "2020-21")
+
+beds_trusts_historical <- beds_trusts %>%
+  filter(!year %in% c("2021-22", "2020-21")) %>%
+  group_by(Name, name, day_of_year) %>%
+  summarise(value = median(value)) %>%
+  ungroup() %>%
+  mutate(year = "2015-16 to 2019-20")
+
+beds_trusts <- bind_rows(
+  beds_trusts_2122,
+  beds_trusts_2021,
+  beds_trusts_historical
+)
+
 # ---- Save data ----
 # write_csv(eng_2122, "data/england-2021-22.csv")
 # write_csv(eng_2021, "data/england-2020-21.csv")
 # write_csv(eng_hist_sum, "data/england-historical.csv")
 write_csv(england, "data/england.csv")
+write_csv(beds_england, "data/england-beds.csv")
 # write_csv(trust_2122, "data/trusts-2021-22.csv")
 # write_csv(trust_2021, "data/trusts-2020-21.csv")
 # write_csv(trust_hist_sum, "data/trusts-historical.csv")
 write_csv(trusts, "data/trusts.csv")
+write_csv(beds_trusts, "data/trusts-beds.csv")
 
 # write_feather(eng_2122,       "data/england-2021-22.feather", compression = "uncompressed")
 # write_feather(eng_2021,       "data/england-2020-21.feather", compression = "uncompressed")
 # write_feather(eng_hist_sum,   "data/england-historical.feather", compression = "uncompressed")
-write_feather(england,       "data/england.feather", compression = "uncompressed")
+write_feather(england, "data/england.feather", compression = "uncompressed")
+write_feather(beds_england, "data/england-beds.feather", compression = "uncompressed")
 # write_feather(trust_2122,     "data/trusts-2021-22.feather", compression = "uncompressed")
 # write_feather(trust_2021,     "data/trusts-2020-21.feather", compression = "uncompressed")
 # write_feather(trust_hist_sum, "data/trusts-historical.feather", compression = "uncompressed")
 write_feather(trusts,     "data/trusts.feather", compression = "uncompressed")
+write_feather(beds_trusts, "data/trusts-beds.feather", compression = "uncompressed")

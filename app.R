@@ -88,40 +88,6 @@ trusts <-
 #   select(day_of_year, `Beds occupied` = `Median beds occupied`, `Beds free`) %>%
 #   pivot_longer(cols = -day_of_year)
 
-beds_england <- england %>%
-  mutate(`Beds free` = `G&A Beds Open` - `G&A beds occ'd`) %>%
-  select(year, day_of_year, `Beds occupied` = `G&A beds occ'd`, `Beds free`) %>%
-  pivot_longer(cols = -c(year, day_of_year))
-
-beds_england_2122 <- beds_england %>%
-  filter(year == "2021-22")
-
-beds_england_2021 <- beds_england %>%
-  filter(year == "2020-21")
-
-beds_england_historical <- beds_england %>%
-  filter(!year %in% c("2021-22", "2020-21")) %>%
-  group_by(name, day_of_year) %>%
-  summarise(value = median(value)) %>%
-  ungroup()
-
-beds_trusts <- trusts %>%
-  mutate(`Beds free` = `G&A Beds Open` - `G&A beds occ'd`) %>%
-  select(year, day_of_year, Name, `Beds occupied` = `G&A beds occ'd`, `Beds free`) %>%
-  pivot_longer(cols = -c(year, day_of_year, Name))
-
-beds_trusts_2122 <- beds_trusts %>%
-  filter(year == "2021-22")
-
-beds_trusts_2021 <- beds_trusts %>%
-  filter(year == "2020-21")
-
-beds_trusts_historical <- beds_trusts %>%
-  filter(!year %in% c("2021-22", "2020-21")) %>%
-  group_by(Name, name, day_of_year) %>%
-  summarise(value = median(value)) %>%
-  ungroup()
-
 
 # ---- Plot functions ----
 plot_trends <- function(d, indicator, indicator_name, trust_name = NULL, plotting_rates = TRUE) {
