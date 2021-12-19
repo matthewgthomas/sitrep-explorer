@@ -7,10 +7,13 @@ library(ggplot2)
 library(shinycssloaders)
 
 source("plot-functions.R")
+source("summaries.R")
 
 # ---- Load data ----
 england <- read_feather("data/england.feather")
 england_beds <- read_feather("data/england-beds.feather")
+england_summary <- read_feather("data/england-summary.feather")
+
 trusts <- read_feather("data/trusts.feather")
 trusts_beds <- read_feather("data/trusts-beds.feather")
 
@@ -55,8 +58,55 @@ trusts <-
     )
   )
 
+# ---- Data wrangling for summary indicators ----
+# Get most recent week number
+this_week <-
+  england_summary %>%
+  filter(year == "2021-22" & week == max(week)) %>%
+  distinct(week) %>%
+  pull(week)
+
+# Recast summary for this week so rows are indicators and columns are years
+this_week_summary <-
+  england_summary %>%
+  filter(week == this_week) %>%
+  select(-week) %>%
+  pivot_longer(cols = -year) %>%
+  pivot_wider(names_from = year, values_from = value)
+
 # ---- UI ----
 ui <- fluidPage(
+
+    # CSS Styles
+    tags$head(
+      tags$style(
+        HTML("
+        #card {
+            box-shadow: 0px 0px 3px grey;
+            border-radius: 5px;
+            padding: 10px 20px 10px 20px;
+            margin: 0px 0px 20px 0px;
+        }
+
+        .change-box {
+          padding-top: 5px;
+          padding-right: 8px;
+          padding-bottom: 4px;
+          padding-left: 8px;
+        }
+
+        .change-box.good {
+          background: #cce2d8;
+          color: #005a30;
+        }
+
+        .change-box.bad {
+          background: #f6d7d2;
+          color: #942514;
+        }
+        ")
+      )
+    ),
 
     titlePanel("NHS England winter situation report explorer"),
 
@@ -66,6 +116,7 @@ ui <- fluidPage(
               "indicator",
               "Select an indicator",
               choices = c(
+                "Summary",
                 "Critical care bed occupancy (rates)",
                 "Critical care bed occupancy (counts)",
                 "General & acute bed occupancy (rates)",
@@ -91,13 +142,31 @@ ui <- fluidPage(
         ),
 
         mainPanel(
+          conditionalPanel(
+            condition = "input.indicator == 'Summary'",
+
+            # Show summary page
+            fluidRow(
+              column(
+                id = "beds_box",
+                width = 6,
+                align = "center",
+                tags$div(
+                  id = "card",
+                  summary_UI("summary_beds")
+                )
+              )
+            ),
+
+            # Show graphs
             shinycssloaders::withSpinner(plotOutput("plot"), color = "red")
+          )
         )
     )
 )
 
 # Define server logic required to draw a histogram
-server <- function(input, output) {
+server <- function(input, output, session) {
 
     output$plot <- renderPlot({
 
@@ -306,6 +375,15 @@ server <- function(input, output) {
 
       } # end if
     })
+
+    # ---- Summaries ----
+    summary_server(
+      id = "summary_beds",
+      indicator_name = "General & Acute beds occupied",
+      indicator_21 = this_week_summary %>% filter(name == "G&A beds occ'd") %>% pull(`2021-22`),
+      indicator_20 = this_week_summary %>% filter(name == "G&A beds occ'd") %>% pull(`2020-21`),
+      indicator_19 = this_week_summary %>% filter(name == "G&A beds occ'd") %>% pull(`2019-20`),
+    )
 }
 
 # Run the application
