@@ -225,6 +225,26 @@ ui <- fluidPage(
                   id = "card",
                   summary_UI("summary_closures")
                 )
+              ),
+
+              column(
+                id = "delays_30_box",
+                width = 6,
+                align = "center",
+                tags$div(
+                  id = "card",
+                  summary_UI("summary_delays_30")
+                )
+              ),
+
+              column(
+                id = "delays_60_box",
+                width = 6,
+                align = "center",
+                tags$div(
+                  id = "card",
+                  summary_UI("summary_delays_60")
+                )
               )
             ),
 
@@ -513,6 +533,21 @@ server <- function(input, output, session) {
       indicator_19 = this_week_summary %>% filter(name == "Closures") %>% pull(`2019-20`)
     )
 
+    summary_server(
+      id = "summary_delays_30",
+      indicator_name = "Ambulance handover delays (30-60 mins)",
+      indicator_21 = this_week_summary %>% filter(name == "Delays30") %>% pull(`2021-22`),
+      indicator_20 = this_week_summary %>% filter(name == "Delays30") %>% pull(`2020-21`),
+      indicator_19 = this_week_summary %>% filter(name == "Delays30") %>% pull(`2019-20`)
+    )
+
+    summary_server(
+      id = "summary_delays_60",
+      indicator_name = "Ambulance handover delays (60+ mins)",
+      indicator_21 = this_week_summary %>% filter(name == "Delays60") %>% pull(`2021-22`),
+      indicator_20 = this_week_summary %>% filter(name == "Delays60") %>% pull(`2020-21`),
+      indicator_19 = this_week_summary %>% filter(name == "Delays60") %>% pull(`2019-20`)
+    )
 }
 
 # Run the application
