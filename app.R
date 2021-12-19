@@ -205,6 +205,26 @@ ui <- fluidPage(
                   id = "card",
                   summary_UI("summary_long_21")
                 )
+              ),
+
+              column(
+                id = "diverts_box",
+                width = 6,
+                align = "center",
+                tags$div(
+                  id = "card",
+                  summary_UI("summary_diverts")
+                )
+              ),
+
+              column(
+                id = "closures_box",
+                width = 6,
+                align = "center",
+                tags$div(
+                  id = "card",
+                  summary_UI("summary_closures")
+                )
               )
             ),
 
@@ -475,6 +495,22 @@ server <- function(input, output, session) {
       indicator_21 = this_week_summary %>% filter(name == "No. beds occupied by long-stay patients (> 21 days)") %>% pull(`2021-22`),
       indicator_20 = this_week_summary %>% filter(name == "No. beds occupied by long-stay patients (> 21 days)") %>% pull(`2020-21`),
       indicator_19 = this_week_summary %>% filter(name == "No. beds occupied by long-stay patients (> 21 days)") %>% pull(`2019-20`)
+    )
+
+    summary_server(
+      id = "summary_diverts",
+      indicator_name = "A&E diverts",
+      indicator_21 = this_week_summary %>% filter(name == "Diverts") %>% pull(`2021-22`),
+      indicator_20 = this_week_summary %>% filter(name == "Diverts") %>% pull(`2020-21`),
+      indicator_19 = this_week_summary %>% filter(name == "Diverts") %>% pull(`2019-20`)
+    )
+
+    summary_server(
+      id = "summary_closures",
+      indicator_name = "A&E closures",
+      indicator_21 = this_week_summary %>% filter(name == "Closures") %>% pull(`2021-22`),
+      indicator_20 = this_week_summary %>% filter(name == "Closures") %>% pull(`2020-21`),
+      indicator_19 = this_week_summary %>% filter(name == "Closures") %>% pull(`2019-20`)
     )
 
 }
