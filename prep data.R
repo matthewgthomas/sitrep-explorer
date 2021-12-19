@@ -100,14 +100,6 @@ beds_england <- bind_rows(
 )
 
 # - Calculate high-level summaries and comparisons to same week in previous years -
-# this_week <-
-#   england %>%
-#   filter(year == "2021-22") %>%
-#   mutate(week = isoweek(Date)) %>%
-#   filter(week == max(week)) %>%
-#   distinct(week) %>%
-#   pull(week)
-
 england_summary <-
   england %>%
   mutate(week = isoweek(Date)) %>%
@@ -194,15 +186,36 @@ beds_trusts <- bind_rows(
   beds_trusts_historical
 )
 
+# - Calculate high-level summaries and comparisons to same week in previous years -
+trusts_summary <-
+  trusts %>%
+  mutate(week = isoweek(Date)) %>%
+
+  filter(
+    year %in% c("2021-22", "2020-21", "2019-20")
+  ) %>%
+
+  # Calculate 7-day averages
+  group_by(year, week, Name) %>%
+  summarise(across(is.numeric, mean, na.rm = TRUE)) %>%
+
+  # Recalculate bed occupancy rates based on the average bed counts
+  mutate(
+    `Occupancy rate` = `G&A beds occ'd` / `G&A Beds Open`,
+    `Critical care beds occupancy rate` = `CC Adult Occ` / `CC Adult Open`
+  )
+
 # ---- Save data ----
 write_csv(england, "data/england.csv")
 write_csv(beds_england, "data/england-beds.csv")
 write_csv(england_summary, "data/england-summary.csv")
 write_csv(trusts, "data/trusts.csv")
 write_csv(beds_trusts, "data/trusts-beds.csv")
+write_csv(trusts_summary, "data/trusts-summary.csv")
 
 write_feather(england, "data/england.feather", compression = "uncompressed")
 write_feather(beds_england, "data/england-beds.feather", compression = "uncompressed")
 write_feather(england_summary, "data/england-summary.feather", compression = "uncompressed")
 write_feather(trusts, "data/trusts.feather", compression = "uncompressed")
 write_feather(beds_trusts, "data/trusts-beds.feather", compression = "uncompressed")
+write_feather(trusts_summary, "data/trusts-summary.feather", compression = "uncompressed")

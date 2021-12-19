@@ -74,6 +74,19 @@ this_week_summary <-
   pivot_longer(cols = -year) %>%
   pivot_wider(names_from = year, values_from = value)
 
+# this_week_summary_trusts <-
+#   trusts_summary %>%
+#   filter(week == this_week) %>%
+#   select(-week) %>%
+#   pivot_longer(cols = -c(year, Name)) %>%
+#   pivot_wider(names_from = year, values_from = value)
+#
+# this_week_summary <-
+#   bind_rows(
+#     this_week_summary %>% mutate(Name = "England"),
+#     this_week_summary_trusts
+#   )
+
 # ---- UI ----
 ui <- fluidPage(
 
@@ -470,7 +483,8 @@ server <- function(input, output, session) {
 
     # ---- Summaries ----
     output$summary_title <- renderText({
-      place <- ifelse(input$eng_or_trusts == "England", "England", input$trust_name)
+      # place <- ifelse(input$eng_or_trusts == "England", "England", input$trust_name)  # <-- one for the future
+      place <- "England"
 
       paste0(
         "<h3>Summary for ", place, " in week ", this_week, "</h3>"
