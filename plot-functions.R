@@ -40,7 +40,7 @@ plot_trends <- function(d, indicator, indicator_name, trust_name = NULL, plottin
 
     ggplot(aes(x = day_of_year, y = {{ indicator }}, group = year)) +
 
-    geom_line(aes(colour = year, alpha = opacity), size = 1.1, show.legend = TRUE) +
+    geom_line(aes(colour = year, alpha = opacity), size = 1.1, show.legend = FALSE) +
 
     scale_y_continuous(labels = y_axis_format, limits = y_limits) +
     scale_x_date(date_breaks = "1 month", date_minor_breaks = "1 week", date_labels = "%B") +
