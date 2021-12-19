@@ -147,6 +147,8 @@ ui <- fluidPage(
 
             # Show summary page
             fluidRow(
+              htmlOutput("summary_title"),
+
               column(
                 id = "beds_occ_box",
                 width = 6,
@@ -467,6 +469,14 @@ server <- function(input, output, session) {
     })
 
     # ---- Summaries ----
+    output$summary_title <- renderText({
+      place <- ifelse(input$eng_or_trusts == "England", "England", input$trust_name)
+
+      paste0(
+        "<h3>Summary for ", place, " in week ", this_week, "</h3>"
+      )
+    })
+
     summary_server(
       id = "summary_beds_occ",
       indicator_name = "General & Acute beds occupied",
