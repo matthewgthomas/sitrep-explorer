@@ -232,7 +232,9 @@ ui <- fluidPage(
                 "General & acute bed occupancy (rates)",
                 "General & acute bed occupancy (counts)",
                 "Beds occupied by long-stay patients (> 7 days)",
-                "Beds occupied by long-stay patients (> 21 days)"
+                "Beds occupied by long-stay patients (> 21 days)",
+                "A&E diverts",
+                "A&E closures"
               )
             ),
 
@@ -293,6 +295,16 @@ server <- function(input, output) {
         england %>%
           plot_trends(`No. beds occupied by long-stay patients (> 21 days)`, indicator_name = input$indicator, plotting_rates = FALSE)
 
+      } else if (input$eng_or_trusts == "England" & input$indicator == "A&E diverts") {
+
+        england %>%
+          plot_trends(Diverts, indicator_name = input$indicator, plotting_rates = FALSE)
+
+      } else if (input$eng_or_trusts == "England" & input$indicator == "A&E closures") {
+
+        england %>%
+          plot_trends(Closures, indicator_name = input$indicator, plotting_rates = FALSE)
+
       ##
       ## Plots for Trusts
       ##
@@ -333,6 +345,18 @@ server <- function(input, output) {
           filter(Name == input$trust_name) %>%
           plot_trends(`No. beds occupied by long-stay patients (> 21 days)`, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
 
+      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Itself historically" & input$indicator == "A&E diverts") {
+
+        trusts %>%
+          filter(Name == input$trust_name) %>%
+          plot_trends(Diverts, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
+
+      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Itself historically" & input$indicator == "A&E closures") {
+
+        trusts %>%
+          filter(Name == input$trust_name) %>%
+          plot_trends(Closures, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
+
       # - Comparison with itself this year -
       } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Other Trusts this year" & input$indicator == "Critical care bed occupancy (rates)") {
 
@@ -358,6 +382,17 @@ server <- function(input, output) {
         trusts %>%
           plot_trust_comparison_trends(`No. beds occupied by long-stay patients (> 21 days)`, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
 
+      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Other Trusts this year" & input$indicator == "A&E diverts") {
+
+        trusts %>%
+          plot_trust_comparison_trends(Diverts, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
+
+      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Other Trusts this year" & input$indicator == "A&E closures") {
+
+        trusts %>%
+          plot_trust_comparison_trends(Closures, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
+
+      # - Comparison with England -
       } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "Critical care bed occupancy (rates)") {
 
         england %>%
@@ -377,6 +412,14 @@ server <- function(input, output) {
         empty_graph
 
       } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "Beds occupied by long-stay patients (> 21 days)") {
+
+        empty_graph
+
+      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "A&E diverts") {
+
+        empty_graph
+
+      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "A&E closures") {
 
         empty_graph
 
