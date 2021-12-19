@@ -37,7 +37,7 @@ get_england <- function(d, two_englands = FALSE) {
   }
 
   d %>%
-    select(Date, `Occupancy rate`, starts_with("G&A"), contains("CC"), contains("Critical"), contains("long"), Closures, Diverts) %>%
+    select(Date, `Occupancy rate`, starts_with("G&A"), contains("CC"), contains("Critical"), contains("long"), Closures, Diverts, contains("Delays")) %>%
     mutate(across(-Date, as.double))
 }
 
@@ -99,13 +99,12 @@ beds_england <- bind_rows(
   beds_england_historical
 )
 
-
 # ---- Get Trust-level data ----
 # - Helper functions -
 get_trusts <- function(d) {
   d %>%
     filter(!str_detect(Name, "ENGLAND")) %>%
-    select(Date, Name, `Occupancy rate`, starts_with("G&A"), contains("CC"), contains("Critical"), contains("long"), Closures, Diverts) %>%
+    select(Date, Name, `Occupancy rate`, starts_with("G&A"), contains("CC"), contains("Critical"), contains("long"), Closures, Diverts, contains("Delays")) %>%
     mutate(across(-c(Date, Name), as.double))
 }
 

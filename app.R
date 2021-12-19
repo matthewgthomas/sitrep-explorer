@@ -73,7 +73,9 @@ ui <- fluidPage(
                 "Beds occupied by long-stay patients (> 7 days)",
                 "Beds occupied by long-stay patients (> 21 days)",
                 "A&E diverts",
-                "A&E closures"
+                "A&E closures",
+                "Ambulance handover delays (30-60 mins)",
+                "Ambulance handover delays (more than an hour)"
               )
             ),
 
@@ -144,6 +146,16 @@ server <- function(input, output) {
         england %>%
           plot_trends(Closures, indicator_name = input$indicator, plotting_rates = FALSE)
 
+      } else if (input$eng_or_trusts == "England" & input$indicator == "Ambulance handover delays (30-60 mins)") {
+
+        england %>%
+          plot_trends(Delays30, indicator_name = input$indicator, plotting_rates = FALSE)
+
+      } else if (input$eng_or_trusts == "England" & input$indicator == "Ambulance handover delays (more than an hour)") {
+
+        england %>%
+          plot_trends(Delays60, indicator_name = input$indicator, plotting_rates = FALSE)
+
       ##
       ## Plots for Trusts
       ##
@@ -196,6 +208,18 @@ server <- function(input, output) {
           filter(Name == input$trust_name) %>%
           plot_trends(Closures, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
 
+      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Itself historically" & input$indicator == "Ambulance handover delays (30-60 mins)") {
+
+        trusts %>%
+          filter(Name == input$trust_name) %>%
+          plot_trends(Delays30, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
+
+      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Itself historically" & input$indicator == "Ambulance handover delays (more than an hour)") {
+
+        trusts %>%
+          filter(Name == input$trust_name) %>%
+          plot_trends(Delays60, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
+
       # - Comparison with itself this year -
       } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Other Trusts this year" & input$indicator == "Critical care bed occupancy (rates)") {
 
@@ -231,6 +255,16 @@ server <- function(input, output) {
         trusts %>%
           plot_trust_comparison_trends(Closures, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
 
+      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Other Trusts this year" & input$indicator == "Ambulance handover delays (30-60 mins)") {
+
+        trusts %>%
+          plot_trust_comparison_trends(Delays30, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
+
+      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Other Trusts this year" & input$indicator == "Ambulance handover delays (more than an hour)") {
+
+        trusts %>%
+          plot_trust_comparison_trends(Delays60, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
+
       # - Comparison with England -
       } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "Critical care bed occupancy (rates)") {
 
@@ -259,6 +293,14 @@ server <- function(input, output) {
         empty_graph
 
       } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "A&E closures") {
+
+        empty_graph
+
+      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "Ambulance handover delays (30-60 mins)") {
+
+        empty_graph
+
+      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "Ambulance handover delays (more than an hour)") {
 
         empty_graph
 
