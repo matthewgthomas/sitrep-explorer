@@ -148,12 +148,62 @@ ui <- fluidPage(
             # Show summary page
             fluidRow(
               column(
-                id = "beds_box",
+                id = "beds_occ_box",
                 width = 6,
                 align = "center",
                 tags$div(
                   id = "card",
-                  summary_UI("summary_beds")
+                  summary_UI("summary_beds_occ")
+                )
+              ),
+
+              column(
+                id = "beds_open_box",
+                width = 6,
+                align = "center",
+                tags$div(
+                  id = "card",
+                  summary_UI("summary_beds_open")
+                )
+              ),
+
+              column(
+                id = "cc_occ_box",
+                width = 6,
+                align = "center",
+                tags$div(
+                  id = "card",
+                  summary_UI("summary_cc_occ")
+                )
+              ),
+
+              column(
+                id = "cc_open_box",
+                width = 6,
+                align = "center",
+                tags$div(
+                  id = "card",
+                  summary_UI("summary_cc_open")
+                )
+              ),
+
+              column(
+                id = "beds_long_7_box",
+                width = 6,
+                align = "center",
+                tags$div(
+                  id = "card",
+                  summary_UI("summary_long_7")
+                )
+              ),
+
+              column(
+                id = "beds_long_21_box",
+                width = 6,
+                align = "center",
+                tags$div(
+                  id = "card",
+                  summary_UI("summary_long_21")
                 )
               )
             ),
@@ -378,12 +428,55 @@ server <- function(input, output, session) {
 
     # ---- Summaries ----
     summary_server(
-      id = "summary_beds",
+      id = "summary_beds_occ",
       indicator_name = "General & Acute beds occupied",
       indicator_21 = this_week_summary %>% filter(name == "G&A beds occ'd") %>% pull(`2021-22`),
       indicator_20 = this_week_summary %>% filter(name == "G&A beds occ'd") %>% pull(`2020-21`),
       indicator_19 = this_week_summary %>% filter(name == "G&A beds occ'd") %>% pull(`2019-20`),
     )
+
+    summary_server(
+      id = "summary_beds_open",
+      indicator_name = "General & Acute beds open",
+      indicator_21 = this_week_summary %>% filter(name == "G&A Beds Open") %>% pull(`2021-22`),
+      indicator_20 = this_week_summary %>% filter(name == "G&A Beds Open") %>% pull(`2020-21`),
+      indicator_19 = this_week_summary %>% filter(name == "G&A Beds Open") %>% pull(`2019-20`),
+      bigger_is_better = TRUE
+    )
+
+    summary_server(
+      id = "summary_cc_occ",
+      indicator_name = "Adult critical care beds occupied",
+      indicator_21 = this_week_summary %>% filter(name == "CC Adult Occ") %>% pull(`2021-22`),
+      indicator_20 = this_week_summary %>% filter(name == "CC Adult Occ") %>% pull(`2020-21`),
+      indicator_19 = this_week_summary %>% filter(name == "CC Adult Occ") %>% pull(`2019-20`),
+    )
+
+    summary_server(
+      id = "summary_cc_open",
+      indicator_name = "Adult critical care beds open",
+      indicator_21 = this_week_summary %>% filter(name == "CC Adult Open") %>% pull(`2021-22`),
+      indicator_20 = this_week_summary %>% filter(name == "CC Adult Open") %>% pull(`2020-21`),
+      indicator_19 = this_week_summary %>% filter(name == "CC Adult Open") %>% pull(`2019-20`),
+      bigger_is_better = TRUE
+    )
+
+    summary_server(
+      id = "summary_long_7",
+      indicator_name = "Beds occupied by long-stay patients (> 7 days)",
+      indicator_21 = this_week_summary %>% filter(name == "No. beds occupied by long-stay patients (> 7 days)") %>% pull(`2021-22`),
+      indicator_20 = this_week_summary %>% filter(name == "No. beds occupied by long-stay patients (> 7 days)") %>% pull(`2020-21`),
+      indicator_19 = this_week_summary %>% filter(name == "No. beds occupied by long-stay patients (> 7 days)") %>% pull(`2019-20`)
+    )
+
+    summary_server(
+      id = "summary_long_21",
+      indicator_name = "Beds occupied by long-stay patients (> 21 days)",
+      indicator_21 = this_week_summary %>% filter(name == "No. beds occupied by long-stay patients (> 21 days)") %>% pull(`2021-22`),
+      indicator_20 = this_week_summary %>% filter(name == "No. beds occupied by long-stay patients (> 21 days)") %>% pull(`2020-21`),
+      indicator_19 = this_week_summary %>% filter(name == "No. beds occupied by long-stay patients (> 21 days)") %>% pull(`2019-20`)
+    )
+
 }
 
 # Run the application
