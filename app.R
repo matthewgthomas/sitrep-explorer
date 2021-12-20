@@ -62,7 +62,8 @@ trusts <-
 # Get most recent week number
 this_week <-
   england_summary %>%
-  filter(year == "2021-22" & week == max(week)) %>%
+  filter(year == "2021-22") %>%
+  filter(week == max(week)) %>%
   distinct(week) %>%
   pull(week)
 
@@ -262,8 +263,12 @@ ui <- fluidPage(
                 )
               )
             ),
+          ),
 
-            # Show graphs
+          # Show graphs
+          conditionalPanel(
+            condition = "input.indicator != 'Summary'",
+
             shinycssloaders::withSpinner(plotOutput("plot"), color = "red")
           )
         )
