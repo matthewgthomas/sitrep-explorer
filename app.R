@@ -59,13 +59,19 @@ trusts <-
   )
 
 # ---- Data wrangling for summary indicators ----
+# Does this winter's sitrep include data from after January?
+contains_new_year_data <- TRUE
+
 # Get most recent week number
 this_week <-
   england_summary %>%
   filter(year == "2021-22") %>%
+  {if (contains_new_year_data) filter(., year == "2021-22" & week < 20) else filter(., year == "2021-22") } %>%
   filter(week == max(week)) %>%
   distinct(week) %>%
   pull(week)
+
+this_week <- 9
 
 # Recast summary for this week so rows are indicators and columns are years
 this_week_summary <-
