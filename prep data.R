@@ -111,7 +111,7 @@ england_summary <-
 
   # Calculate 7-day averages
   group_by(year, week) %>%
-  summarise(across(is.numeric, mean, na.rm = TRUE)) %>%
+  summarise(across(where(is.numeric), mean, na.rm = TRUE)) %>%
 
   # Recalculate bed occupancy rates based on the average bed counts
   mutate(
@@ -124,8 +124,8 @@ england_summary <-
 get_trusts <- function(d) {
   d %>%
     filter(!str_detect(Name, "ENGLAND")) %>%
-    select(Date, Name, `Occupancy rate`, starts_with("G&A"), contains("CC"), contains("Critical"), contains("long"), Closures, Diverts, contains("Delays")) %>%
-    mutate(across(-c(Date, Name), as.double))
+    select(Date, Code, Name, `Occupancy rate`, starts_with("G&A"), contains("CC"), contains("Critical"), contains("long"), Closures, Diverts, contains("Delays")) %>%
+    mutate(across(-c(Date, Code, Name), as.double))
 }
 
 # - Get Trust bed occupancy data -
@@ -164,8 +164,8 @@ beds_trusts <- trusts %>%
     `Beds free` = `G&A Beds Open` - `G&A beds occ'd`,
     `CC beds free` = `CC Adult Open` - `CC Adult Occ`
   ) %>%
-  select(year, day_of_year, Name, `Beds occupied` = `G&A beds occ'd`, `Beds free`, `CC beds occupied` = `CC Adult Occ`, `CC beds free`) %>%
-  pivot_longer(cols = -c(year, day_of_year, Name))
+  select(year, day_of_year, Code, Name, `Beds occupied` = `G&A beds occ'd`, `Beds free`, `CC beds occupied` = `CC Adult Occ`, `CC beds free`) %>%
+  pivot_longer(cols = -c(year, day_of_year, Code, Name))
 
 beds_trusts_2122 <- beds_trusts %>%
   filter(year == "2021-22")
@@ -175,7 +175,7 @@ beds_trusts_2021 <- beds_trusts %>%
 
 beds_trusts_historical <- beds_trusts %>%
   filter(!year %in% c("2021-22", "2020-21")) %>%
-  group_by(Name, name, day_of_year) %>%
+  group_by(Code, Name, name, day_of_year) %>%
   summarise(value = median(value)) %>%
   ungroup() %>%
   mutate(year = "2015-16 to 2019-20")
@@ -196,8 +196,8 @@ trusts_summary <-
   ) %>%
 
   # Calculate 7-day averages
-  group_by(year, week, Name) %>%
-  summarise(across(is.numeric, mean, na.rm = TRUE)) %>%
+  group_by(year, week, Code, Name) %>%
+  summarise(across(where(is.numeric), mean, na.rm = TRUE)) %>%
 
   # Recalculate bed occupancy rates based on the average bed counts
   mutate(
