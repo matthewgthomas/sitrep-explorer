@@ -292,7 +292,7 @@ ui <- fluidPage(
           conditionalPanel(
             condition = "input.summary_map_trends == 'Map'",
 
-            shinycssloaders::withSpinner(leafletOutput("map", width = "100%"), color = "red")
+            shinycssloaders::withSpinner(leafletOutput("map", width = "100%", height = "600px"), color = "red")
           ),
 
           # Show trend graphs
