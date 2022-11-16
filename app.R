@@ -5,6 +5,7 @@ library(tidyr)
 library(stringr)
 library(ggplot2)
 library(leaflet)
+library(lubridate)
 library(shinycssloaders)
 
 source("plot-functions.R")
@@ -17,6 +18,8 @@ england_summary <- read_feather("data/england-summary.feather")
 
 trusts <- read_feather("data/trusts.feather")
 trusts_beds <- read_feather("data/trusts-beds.feather")
+
+trusts_geocoded <- read_rds("data/trusts-geocoded.rds")
 
 trust_names <-
   trusts %>%
@@ -308,7 +311,55 @@ server <- function(input, output, session) {
   # ---- Map ----
   output$map <-
     renderLeaflet({
-      leaflet(options = leafletOptions(zoomControl = FALSE)) |>
+      # Get Trust-level data for current date
+      # This will be implemented later, so for now just take most recent values
+      curr_trust_data <-
+        trusts_geocoded |>
+        filter(Date == ymd("2022-03-08"))
+
+      # Fetch data for selected indicator
+      map_data <-
+        curr_trust_data |>
+
+        mutate(indicator = case_when(
+          input$indicator == "Critical care bed occupancy (rates)" ~ `Critical care beds occupancy rate`,
+
+          input$indicator == "Critical care bed occupancy (counts)" ~ `CC Adult Occ`,
+
+          input$indicator == "General & acute bed occupancy (rates)" ~ `Occupancy rate`,
+
+          input$indicator == "General & acute bed occupancy (counts)" ~ `G&A beds occ'd`,
+
+          input$indicator == "Beds occupied by long-stay patients (> 7 days)" ~ `No. beds occupied by long-stay patients (> 7 days)`,
+
+          input$indicator == "Beds occupied by long-stay patients (> 21 days)" ~ `No. beds occupied by long-stay patients (> 21 days)`,
+
+          input$indicator == "A&E diverts" ~ Diverts,
+
+          input$indicator == "A&E closures" ~ Closures,
+
+          input$indicator == "Ambulance handover delays (30-60 mins)" ~ Delays30,
+
+          input$indicator == "Ambulance handover delays (more than an hour)" ~ Delays60,
+
+          # Default to critical care bed occupancy rate
+          TRUE ~ `Critical care beds occupancy rate`
+        )) |>
+
+        mutate(indicator_formatted = ifelse(str_detect(input$indicator, "rates"), scales::percent(indicator), scales::comma(indicator))) |>
+
+        select(nhs_trust22_code, nhs_trust22_name, indicator, indicator_formatted)
+
+      # Create colour palette, depending on the selected indicator
+      pal <- colorNumeric(
+        palette = "Reds",
+        domain = map_data$indicator
+      )
+
+      leaflet(
+        data = map_data,
+        options = leafletOptions(zoomControl = FALSE)
+      ) |>
         setView(lat = 54, lng = -2.0, zoom = 7) |>
         addProviderTiles(
           providers$CartoDB.Positron,
@@ -319,6 +370,29 @@ server <- function(input, output, session) {
           "function(el, x) {
             L.control.zoom({position:'bottomleft'}).addTo(this);
              }"
+        ) |>
+        addCircleMarkers(
+          # data = map_data,
+          fillColor = ~pal(indicator),
+          radius = 6,
+          fillOpacity = 1,
+          stroke = T,
+          weight = 2,
+          color = "black",
+          label = ~nhs_trust22_name
+          # popup = ~paste(
+          #   input$indicator, ": ", indicator_formatted
+          # ),
+          # popupOptions = popupOptions(maxWidth = 600, minWidth = 500)
+        ) |>
+        addLegend(
+          "topright",
+          pal = pal,
+          na.label = "No value",
+          values = ~indicator,
+          labels = ~indicator_formatted,
+          title = str_wrap(input$indicator, 20),
+          opacity = 1
         )
     })
 
