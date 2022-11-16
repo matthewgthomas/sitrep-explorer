@@ -1,6 +1,8 @@
 library(tidyverse)
 library(lubridate)
+library(geographr)
 library(arrow)
+library(sf)
 
 # remotes::install_github("matthewgthomas/NHSWinterSitreps")
 library(NHSWinterSitreps)
@@ -205,6 +207,14 @@ trusts_summary <-
     `Critical care beds occupancy rate` = `CC Adult Occ` / `CC Adult Open`
   )
 
+# ---- Map data ----
+trusts_geocoded <-
+  geographr::points_nhs_trusts22 |>
+  right_join(
+    trusts |> filter(Date >= ymd("2021-11-01") & Date <= ymd("2022-05-01")),
+    by = c("nhs_trust22_code" = "Code")
+  )
+
 # ---- Save data ----
 write_csv(england, "data/england.csv")
 write_csv(beds_england, "data/england-beds.csv")
@@ -219,3 +229,6 @@ write_feather(england_summary, "data/england-summary.feather", compression = "un
 write_feather(trusts, "data/trusts.feather", compression = "uncompressed")
 write_feather(beds_trusts, "data/trusts-beds.feather", compression = "uncompressed")
 write_feather(trusts_summary, "data/trusts-summary.feather", compression = "uncompressed")
+
+write_rds(trusts_geocoded, "data/trusts-geocoded.rds")
+write_rds(trusts_beds_geocoded, "data/trusts-beds-geocoded.rds")
