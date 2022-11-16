@@ -132,11 +132,19 @@ ui <- fluidPage(
 
     sidebarLayout(
         sidebarPanel(
+          radioButtons(
+            "summary_map_trends",
+            "",
+            choices = c("Summary", "Map", "Trends")
+          ),
+
+          conditionalPanel(
+            condition = "input.summary_map_trends != 'Summary'",
+
             selectizeInput(
               "indicator",
               "Select an indicator",
               choices = c(
-                "Summary",
                 "Critical care bed occupancy (rates)",
                 "Critical care bed occupancy (counts)",
                 "General & acute bed occupancy (rates)",
@@ -150,7 +158,11 @@ ui <- fluidPage(
               )
             ),
 
-            radioButtons("eng_or_trusts", "Show data for England or for individual Trusts?", choices = c("England", "Trusts")),
+            conditionalPanel(
+              condition = "input.summary_map_trends == 'Trends'",
+
+              radioButtons("eng_or_trusts", "Show data for England or for individual Trusts?", choices = c("England", "Trusts"))
+            ),
 
             conditionalPanel(
               condition = "input.eng_or_trusts == 'Trusts'",
@@ -159,11 +171,12 @@ ui <- fluidPage(
 
               radioButtons("trust_comparison", "Compare this Trust to...", choices = c("Itself historically", "Other Trusts this year", "England averages"))
             )
+          )
         ),
 
         mainPanel(
           conditionalPanel(
-            condition = "input.indicator == 'Summary'",
+            condition = "input.summary_map_trends == 'Summary'",
 
             # Show summary page
             fluidRow(
@@ -271,9 +284,17 @@ ui <- fluidPage(
             ),
           ),
 
-          # Show graphs
+          # Show map
           conditionalPanel(
-            condition = "input.indicator != 'Summary'",
+            condition = "input.summary_map_trends == 'Map'",
+
+            "Map goes here"
+            # shinycssloaders::withSpinner(..., color = "red")
+          ),
+
+          # Show trend graphs
+          conditionalPanel(
+            condition = "input.summary_map_trends == 'Trends'",
 
             shinycssloaders::withSpinner(plotOutput("plot"), color = "red")
           )
