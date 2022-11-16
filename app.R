@@ -4,6 +4,7 @@ library(dplyr)
 library(tidyr)
 library(stringr)
 library(ggplot2)
+library(leaflet)
 library(shinycssloaders)
 
 source("plot-functions.R")
@@ -288,8 +289,7 @@ ui <- fluidPage(
           conditionalPanel(
             condition = "input.summary_map_trends == 'Map'",
 
-            "Map goes here"
-            # shinycssloaders::withSpinner(..., color = "red")
+            shinycssloaders::withSpinner(leafletOutput("map", width = "100%"), color = "red")
           ),
 
           # Show trend graphs
@@ -305,305 +305,323 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
 
-    output$plot <- renderPlot({
-
-      ##
-      ## Plots for England
-      ##
-      if (input$eng_or_trusts == "England" & input$indicator == "Critical care bed occupancy (rates)") {
-
-        england %>%
-          plot_trends(`Critical care beds occupancy rate`, indicator_name = input$indicator)
-
-      } else if (input$eng_or_trusts == "England" & input$indicator == "Critical care bed occupancy (counts)") {
-
-        england_beds %>%
-          filter(str_detect(name, "^CC")) %>%
-          plot_counts(indicator_name = input$indicator)
-
-      } else if (input$eng_or_trusts == "England" & input$indicator == "General & acute bed occupancy (rates)") {
-
-        england %>%
-          plot_trends(`Occupancy rate`, indicator_name = input$indicator)
-
-      } else if (input$eng_or_trusts == "England" & input$indicator == "General & acute bed occupancy (counts)") {
-
-        england_beds %>%
-          filter(!str_detect(name, "^CC")) %>%
-          plot_counts(indicator_name = input$indicator)
-
-      } else if (input$eng_or_trusts == "England" & input$indicator == "Beds occupied by long-stay patients (> 7 days)") {
-
-        england %>%
-          plot_trends(`No. beds occupied by long-stay patients (> 7 days)`, indicator_name = input$indicator, plotting_rates = FALSE)
-
-      } else if (input$eng_or_trusts == "England" & input$indicator == "Beds occupied by long-stay patients (> 21 days)") {
-
-        england %>%
-          plot_trends(`No. beds occupied by long-stay patients (> 21 days)`, indicator_name = input$indicator, plotting_rates = FALSE)
-
-      } else if (input$eng_or_trusts == "England" & input$indicator == "A&E diverts") {
-
-        england %>%
-          plot_trends(Diverts, indicator_name = input$indicator, plotting_rates = FALSE)
-
-      } else if (input$eng_or_trusts == "England" & input$indicator == "A&E closures") {
-
-        england %>%
-          plot_trends(Closures, indicator_name = input$indicator, plotting_rates = FALSE)
-
-      } else if (input$eng_or_trusts == "England" & input$indicator == "Ambulance handover delays (30-60 mins)") {
-
-        england %>%
-          plot_trends(Delays30, indicator_name = input$indicator, plotting_rates = FALSE)
-
-      } else if (input$eng_or_trusts == "England" & input$indicator == "Ambulance handover delays (more than an hour)") {
-
-        england %>%
-          plot_trends(Delays60, indicator_name = input$indicator, plotting_rates = FALSE)
-
-      ##
-      ## Plots for Trusts
-      ##
-      # - Comparison with itself historically -
-      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Itself historically" & input$indicator == "Critical care bed occupancy (rates)") {
-
-        trusts %>%
-          filter(Name == input$trust_name) %>%
-          plot_trends(`Critical care beds occupancy rate`, indicator_name = input$indicator, trust_name = input$trust_name)
-
-      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Itself historically" & input$indicator == "Critical care bed occupancy (counts)") {
-
-        trusts_beds %>%
-          filter(str_detect(name, "^CC") & Name == input$trust_name) %>%
-          plot_counts(input$indicator, trust_name = input$trust_name)
-
-      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Itself historically" & input$indicator == "General & acute bed occupancy (rates)") {
-
-        trusts %>%
-          filter(Name == input$trust_name) %>%
-          plot_trends(`Occupancy rate`, indicator_name = input$indicator, trust_name = input$trust_name)
-
-      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Itself historically" & input$indicator == "General & acute bed occupancy (counts)") {
-
-        trusts_beds %>%
-          filter(!str_detect(name, "^CC") & Name == input$trust_name) %>%
-          plot_counts(input$indicator, trust_name = input$trust_name)
-
-      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Itself historically" & input$indicator == "Beds occupied by long-stay patients (> 7 days)") {
-
-        trusts %>%
-          filter(Name == input$trust_name) %>%
-          plot_trends(`No. beds occupied by long-stay patients (> 7 days)`, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
-
-      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Itself historically" & input$indicator == "Beds occupied by long-stay patients (> 21 days)") {
-
-        trusts %>%
-          filter(Name == input$trust_name) %>%
-          plot_trends(`No. beds occupied by long-stay patients (> 21 days)`, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
-
-      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Itself historically" & input$indicator == "A&E diverts") {
-
-        trusts %>%
-          filter(Name == input$trust_name) %>%
-          plot_trends(Diverts, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
-
-      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Itself historically" & input$indicator == "A&E closures") {
-
-        trusts %>%
-          filter(Name == input$trust_name) %>%
-          plot_trends(Closures, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
-
-      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Itself historically" & input$indicator == "Ambulance handover delays (30-60 mins)") {
-
-        trusts %>%
-          filter(Name == input$trust_name) %>%
-          plot_trends(Delays30, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
-
-      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Itself historically" & input$indicator == "Ambulance handover delays (more than an hour)") {
-
-        trusts %>%
-          filter(Name == input$trust_name) %>%
-          plot_trends(Delays60, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
-
-      # - Comparison with itself this year -
-      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Other Trusts this year" & input$indicator == "Critical care bed occupancy (rates)") {
-
-        trusts %>%
-          plot_trust_comparison_trends(`Critical care beds occupancy rate`, indicator_name = input$indicator, trust_name = input$trust_name)
-
-      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Other Trusts this year" & input$indicator == "General & acute bed occupancy (rates)") {
-
-        trusts %>%
-          plot_trust_comparison_trends(`Occupancy rate`, indicator_name = input$indicator, trust_name = input$trust_name)
-
-      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Other Trusts this year" & input$indicator == "General & acute bed occupancy (counts)") {
-
-        empty_graph
-
-      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Other Trusts this year" & input$indicator == "Beds occupied by long-stay patients (> 7 days)") {
-
-        trusts %>%
-          plot_trust_comparison_trends(`No. beds occupied by long-stay patients (> 7 days)`, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
-
-      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Other Trusts this year" & input$indicator == "Beds occupied by long-stay patients (> 21 days)") {
-
-        trusts %>%
-          plot_trust_comparison_trends(`No. beds occupied by long-stay patients (> 21 days)`, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
-
-      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Other Trusts this year" & input$indicator == "A&E diverts") {
-
-        trusts %>%
-          plot_trust_comparison_trends(Diverts, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
-
-      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Other Trusts this year" & input$indicator == "A&E closures") {
-
-        trusts %>%
-          plot_trust_comparison_trends(Closures, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
-
-      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Other Trusts this year" & input$indicator == "Ambulance handover delays (30-60 mins)") {
-
-        trusts %>%
-          plot_trust_comparison_trends(Delays30, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
-
-      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Other Trusts this year" & input$indicator == "Ambulance handover delays (more than an hour)") {
-
-        trusts %>%
-          plot_trust_comparison_trends(Delays60, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
-
-      # - Comparison with England -
-      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "Critical care bed occupancy (rates)") {
-
-        england %>%
-          plot_trust_england_comparison_trends(`Critical care beds occupancy rate`, indicator_name = input$indicator, trust_name = input$trust_name)
-
-      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "General & acute bed occupancy (rates)") {
-
-        england %>%
-          plot_trust_england_comparison_trends(`Occupancy rate`, indicator_name = input$indicator, trust_name = input$trust_name)
-
-      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "General & acute bed occupancy (counts)") {
-
-        empty_graph
-
-      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "Beds occupied by long-stay patients (> 7 days)") {
-
-        empty_graph
-
-      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "Beds occupied by long-stay patients (> 21 days)") {
-
-        empty_graph
-
-      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "A&E diverts") {
-
-        empty_graph
-
-      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "A&E closures") {
-
-        empty_graph
-
-      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "Ambulance handover delays (30-60 mins)") {
-
-        empty_graph
-
-      } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "Ambulance handover delays (more than an hour)") {
-
-        empty_graph
-
-      } # end if
+  # ---- Map ----
+  output$map <-
+    renderLeaflet({
+      leaflet(options = leafletOptions(zoomControl = FALSE)) |>
+        setView(lat = 54, lng = -2.0, zoom = 7) |>
+        addProviderTiles(
+          providers$CartoDB.Positron,
+          options = providerTileOptions(minZoom = 7)
+        ) |>
+        setMaxBounds(-12, 49, 3.0, 61) |>
+        htmlwidgets::onRender(
+          "function(el, x) {
+            L.control.zoom({position:'bottomleft'}).addTo(this);
+             }"
+        )
     })
 
-    # ---- Summaries ----
-    output$summary_title <- renderText({
-      # place <- ifelse(input$eng_or_trusts == "England", "England", input$trust_name)  # <-- one for the future
-      place <- "England"
+  # ---- Trends ----
+  output$plot <- renderPlot({
 
-      paste0(
-        "<h3>Summary for ", place, " in week ", this_week, "</h3>"
-      )
-    })
+    ##
+    ## Plots for England
+    ##
+    if (input$eng_or_trusts == "England" & input$indicator == "Critical care bed occupancy (rates)") {
 
-    summary_server(
-      id = "summary_beds_occ",
-      indicator_name = "General & Acute beds occupied",
-      indicator_21 = this_week_summary %>% filter(name == "G&A beds occ'd") %>% pull(`2021-22`),
-      indicator_20 = this_week_summary %>% filter(name == "G&A beds occ'd") %>% pull(`2020-21`),
-      indicator_19 = this_week_summary %>% filter(name == "G&A beds occ'd") %>% pull(`2019-20`),
+      england %>%
+        plot_trends(`Critical care beds occupancy rate`, indicator_name = input$indicator)
+
+    } else if (input$eng_or_trusts == "England" & input$indicator == "Critical care bed occupancy (counts)") {
+
+      england_beds %>%
+        filter(str_detect(name, "^CC")) %>%
+        plot_counts(indicator_name = input$indicator)
+
+    } else if (input$eng_or_trusts == "England" & input$indicator == "General & acute bed occupancy (rates)") {
+
+      england %>%
+        plot_trends(`Occupancy rate`, indicator_name = input$indicator)
+
+    } else if (input$eng_or_trusts == "England" & input$indicator == "General & acute bed occupancy (counts)") {
+
+      england_beds %>%
+        filter(!str_detect(name, "^CC")) %>%
+        plot_counts(indicator_name = input$indicator)
+
+    } else if (input$eng_or_trusts == "England" & input$indicator == "Beds occupied by long-stay patients (> 7 days)") {
+
+      england %>%
+        plot_trends(`No. beds occupied by long-stay patients (> 7 days)`, indicator_name = input$indicator, plotting_rates = FALSE)
+
+    } else if (input$eng_or_trusts == "England" & input$indicator == "Beds occupied by long-stay patients (> 21 days)") {
+
+      england %>%
+        plot_trends(`No. beds occupied by long-stay patients (> 21 days)`, indicator_name = input$indicator, plotting_rates = FALSE)
+
+    } else if (input$eng_or_trusts == "England" & input$indicator == "A&E diverts") {
+
+      england %>%
+        plot_trends(Diverts, indicator_name = input$indicator, plotting_rates = FALSE)
+
+    } else if (input$eng_or_trusts == "England" & input$indicator == "A&E closures") {
+
+      england %>%
+        plot_trends(Closures, indicator_name = input$indicator, plotting_rates = FALSE)
+
+    } else if (input$eng_or_trusts == "England" & input$indicator == "Ambulance handover delays (30-60 mins)") {
+
+      england %>%
+        plot_trends(Delays30, indicator_name = input$indicator, plotting_rates = FALSE)
+
+    } else if (input$eng_or_trusts == "England" & input$indicator == "Ambulance handover delays (more than an hour)") {
+
+      england %>%
+        plot_trends(Delays60, indicator_name = input$indicator, plotting_rates = FALSE)
+
+    ##
+    ## Plots for Trusts
+    ##
+    # - Comparison with itself historically -
+    } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Itself historically" & input$indicator == "Critical care bed occupancy (rates)") {
+
+      trusts %>%
+        filter(Name == input$trust_name) %>%
+        plot_trends(`Critical care beds occupancy rate`, indicator_name = input$indicator, trust_name = input$trust_name)
+
+    } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Itself historically" & input$indicator == "Critical care bed occupancy (counts)") {
+
+      trusts_beds %>%
+        filter(str_detect(name, "^CC") & Name == input$trust_name) %>%
+        plot_counts(input$indicator, trust_name = input$trust_name)
+
+    } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Itself historically" & input$indicator == "General & acute bed occupancy (rates)") {
+
+      trusts %>%
+        filter(Name == input$trust_name) %>%
+        plot_trends(`Occupancy rate`, indicator_name = input$indicator, trust_name = input$trust_name)
+
+    } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Itself historically" & input$indicator == "General & acute bed occupancy (counts)") {
+
+      trusts_beds %>%
+        filter(!str_detect(name, "^CC") & Name == input$trust_name) %>%
+        plot_counts(input$indicator, trust_name = input$trust_name)
+
+    } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Itself historically" & input$indicator == "Beds occupied by long-stay patients (> 7 days)") {
+
+      trusts %>%
+        filter(Name == input$trust_name) %>%
+        plot_trends(`No. beds occupied by long-stay patients (> 7 days)`, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
+
+    } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Itself historically" & input$indicator == "Beds occupied by long-stay patients (> 21 days)") {
+
+      trusts %>%
+        filter(Name == input$trust_name) %>%
+        plot_trends(`No. beds occupied by long-stay patients (> 21 days)`, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
+
+    } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Itself historically" & input$indicator == "A&E diverts") {
+
+      trusts %>%
+        filter(Name == input$trust_name) %>%
+        plot_trends(Diverts, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
+
+    } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Itself historically" & input$indicator == "A&E closures") {
+
+      trusts %>%
+        filter(Name == input$trust_name) %>%
+        plot_trends(Closures, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
+
+    } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Itself historically" & input$indicator == "Ambulance handover delays (30-60 mins)") {
+
+      trusts %>%
+        filter(Name == input$trust_name) %>%
+        plot_trends(Delays30, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
+
+    } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Itself historically" & input$indicator == "Ambulance handover delays (more than an hour)") {
+
+      trusts %>%
+        filter(Name == input$trust_name) %>%
+        plot_trends(Delays60, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
+
+    # - Comparison with itself this year -
+    } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Other Trusts this year" & input$indicator == "Critical care bed occupancy (rates)") {
+
+      trusts %>%
+        plot_trust_comparison_trends(`Critical care beds occupancy rate`, indicator_name = input$indicator, trust_name = input$trust_name)
+
+    } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Other Trusts this year" & input$indicator == "General & acute bed occupancy (rates)") {
+
+      trusts %>%
+        plot_trust_comparison_trends(`Occupancy rate`, indicator_name = input$indicator, trust_name = input$trust_name)
+
+    } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Other Trusts this year" & input$indicator == "General & acute bed occupancy (counts)") {
+
+      empty_graph
+
+    } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Other Trusts this year" & input$indicator == "Beds occupied by long-stay patients (> 7 days)") {
+
+      trusts %>%
+        plot_trust_comparison_trends(`No. beds occupied by long-stay patients (> 7 days)`, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
+
+    } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Other Trusts this year" & input$indicator == "Beds occupied by long-stay patients (> 21 days)") {
+
+      trusts %>%
+        plot_trust_comparison_trends(`No. beds occupied by long-stay patients (> 21 days)`, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
+
+    } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Other Trusts this year" & input$indicator == "A&E diverts") {
+
+      trusts %>%
+        plot_trust_comparison_trends(Diverts, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
+
+    } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Other Trusts this year" & input$indicator == "A&E closures") {
+
+      trusts %>%
+        plot_trust_comparison_trends(Closures, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
+
+    } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Other Trusts this year" & input$indicator == "Ambulance handover delays (30-60 mins)") {
+
+      trusts %>%
+        plot_trust_comparison_trends(Delays30, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
+
+    } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "Other Trusts this year" & input$indicator == "Ambulance handover delays (more than an hour)") {
+
+      trusts %>%
+        plot_trust_comparison_trends(Delays60, indicator_name = input$indicator, trust_name = input$trust_name, plotting_rates = FALSE)
+
+    # - Comparison with England -
+    } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "Critical care bed occupancy (rates)") {
+
+      england %>%
+        plot_trust_england_comparison_trends(`Critical care beds occupancy rate`, indicator_name = input$indicator, trust_name = input$trust_name)
+
+    } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "General & acute bed occupancy (rates)") {
+
+      england %>%
+        plot_trust_england_comparison_trends(`Occupancy rate`, indicator_name = input$indicator, trust_name = input$trust_name)
+
+    } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "General & acute bed occupancy (counts)") {
+
+      empty_graph
+
+    } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "Beds occupied by long-stay patients (> 7 days)") {
+
+      empty_graph
+
+    } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "Beds occupied by long-stay patients (> 21 days)") {
+
+      empty_graph
+
+    } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "A&E diverts") {
+
+      empty_graph
+
+    } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "A&E closures") {
+
+      empty_graph
+
+    } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "Ambulance handover delays (30-60 mins)") {
+
+      empty_graph
+
+    } else if (input$eng_or_trusts == "Trusts" & input$trust_comparison == "England averages" & input$indicator == "Ambulance handover delays (more than an hour)") {
+
+      empty_graph
+
+    } # end if
+  })
+
+  # ---- Summaries ----
+  output$summary_title <- renderText({
+    # place <- ifelse(input$eng_or_trusts == "England", "England", input$trust_name)  # <-- one for the future
+    place <- "England"
+
+    paste0(
+      "<h3>Summary for ", place, " in week ", this_week, "</h3>"
     )
+  })
 
-    summary_server(
-      id = "summary_beds_open",
-      indicator_name = "General & Acute beds open",
-      indicator_21 = this_week_summary %>% filter(name == "G&A Beds Open") %>% pull(`2021-22`),
-      indicator_20 = this_week_summary %>% filter(name == "G&A Beds Open") %>% pull(`2020-21`),
-      indicator_19 = this_week_summary %>% filter(name == "G&A Beds Open") %>% pull(`2019-20`),
-      bigger_is_better = TRUE
-    )
+  summary_server(
+    id = "summary_beds_occ",
+    indicator_name = "General & Acute beds occupied",
+    indicator_21 = this_week_summary %>% filter(name == "G&A beds occ'd") %>% pull(`2021-22`),
+    indicator_20 = this_week_summary %>% filter(name == "G&A beds occ'd") %>% pull(`2020-21`),
+    indicator_19 = this_week_summary %>% filter(name == "G&A beds occ'd") %>% pull(`2019-20`),
+  )
 
-    summary_server(
-      id = "summary_cc_occ",
-      indicator_name = "Adult critical care beds occupied",
-      indicator_21 = this_week_summary %>% filter(name == "CC Adult Occ") %>% pull(`2021-22`),
-      indicator_20 = this_week_summary %>% filter(name == "CC Adult Occ") %>% pull(`2020-21`),
-      indicator_19 = this_week_summary %>% filter(name == "CC Adult Occ") %>% pull(`2019-20`),
-    )
+  summary_server(
+    id = "summary_beds_open",
+    indicator_name = "General & Acute beds open",
+    indicator_21 = this_week_summary %>% filter(name == "G&A Beds Open") %>% pull(`2021-22`),
+    indicator_20 = this_week_summary %>% filter(name == "G&A Beds Open") %>% pull(`2020-21`),
+    indicator_19 = this_week_summary %>% filter(name == "G&A Beds Open") %>% pull(`2019-20`),
+    bigger_is_better = TRUE
+  )
 
-    summary_server(
-      id = "summary_cc_open",
-      indicator_name = "Adult critical care beds open",
-      indicator_21 = this_week_summary %>% filter(name == "CC Adult Open") %>% pull(`2021-22`),
-      indicator_20 = this_week_summary %>% filter(name == "CC Adult Open") %>% pull(`2020-21`),
-      indicator_19 = this_week_summary %>% filter(name == "CC Adult Open") %>% pull(`2019-20`),
-      bigger_is_better = TRUE
-    )
+  summary_server(
+    id = "summary_cc_occ",
+    indicator_name = "Adult critical care beds occupied",
+    indicator_21 = this_week_summary %>% filter(name == "CC Adult Occ") %>% pull(`2021-22`),
+    indicator_20 = this_week_summary %>% filter(name == "CC Adult Occ") %>% pull(`2020-21`),
+    indicator_19 = this_week_summary %>% filter(name == "CC Adult Occ") %>% pull(`2019-20`),
+  )
 
-    summary_server(
-      id = "summary_long_7",
-      indicator_name = "Beds occupied by long-stay patients (> 7 days)",
-      indicator_21 = this_week_summary %>% filter(name == "No. beds occupied by long-stay patients (> 7 days)") %>% pull(`2021-22`),
-      indicator_20 = this_week_summary %>% filter(name == "No. beds occupied by long-stay patients (> 7 days)") %>% pull(`2020-21`),
-      indicator_19 = this_week_summary %>% filter(name == "No. beds occupied by long-stay patients (> 7 days)") %>% pull(`2019-20`)
-    )
+  summary_server(
+    id = "summary_cc_open",
+    indicator_name = "Adult critical care beds open",
+    indicator_21 = this_week_summary %>% filter(name == "CC Adult Open") %>% pull(`2021-22`),
+    indicator_20 = this_week_summary %>% filter(name == "CC Adult Open") %>% pull(`2020-21`),
+    indicator_19 = this_week_summary %>% filter(name == "CC Adult Open") %>% pull(`2019-20`),
+    bigger_is_better = TRUE
+  )
 
-    summary_server(
-      id = "summary_long_21",
-      indicator_name = "Beds occupied by long-stay patients (> 21 days)",
-      indicator_21 = this_week_summary %>% filter(name == "No. beds occupied by long-stay patients (> 21 days)") %>% pull(`2021-22`),
-      indicator_20 = this_week_summary %>% filter(name == "No. beds occupied by long-stay patients (> 21 days)") %>% pull(`2020-21`),
-      indicator_19 = this_week_summary %>% filter(name == "No. beds occupied by long-stay patients (> 21 days)") %>% pull(`2019-20`)
-    )
+  summary_server(
+    id = "summary_long_7",
+    indicator_name = "Beds occupied by long-stay patients (> 7 days)",
+    indicator_21 = this_week_summary %>% filter(name == "No. beds occupied by long-stay patients (> 7 days)") %>% pull(`2021-22`),
+    indicator_20 = this_week_summary %>% filter(name == "No. beds occupied by long-stay patients (> 7 days)") %>% pull(`2020-21`),
+    indicator_19 = this_week_summary %>% filter(name == "No. beds occupied by long-stay patients (> 7 days)") %>% pull(`2019-20`)
+  )
 
-    summary_server(
-      id = "summary_diverts",
-      indicator_name = "A&E diverts",
-      indicator_21 = this_week_summary %>% filter(name == "Diverts") %>% pull(`2021-22`),
-      indicator_20 = this_week_summary %>% filter(name == "Diverts") %>% pull(`2020-21`),
-      indicator_19 = this_week_summary %>% filter(name == "Diverts") %>% pull(`2019-20`)
-    )
+  summary_server(
+    id = "summary_long_21",
+    indicator_name = "Beds occupied by long-stay patients (> 21 days)",
+    indicator_21 = this_week_summary %>% filter(name == "No. beds occupied by long-stay patients (> 21 days)") %>% pull(`2021-22`),
+    indicator_20 = this_week_summary %>% filter(name == "No. beds occupied by long-stay patients (> 21 days)") %>% pull(`2020-21`),
+    indicator_19 = this_week_summary %>% filter(name == "No. beds occupied by long-stay patients (> 21 days)") %>% pull(`2019-20`)
+  )
 
-    summary_server(
-      id = "summary_closures",
-      indicator_name = "A&E closures",
-      indicator_21 = this_week_summary %>% filter(name == "Closures") %>% pull(`2021-22`),
-      indicator_20 = this_week_summary %>% filter(name == "Closures") %>% pull(`2020-21`),
-      indicator_19 = this_week_summary %>% filter(name == "Closures") %>% pull(`2019-20`)
-    )
+  summary_server(
+    id = "summary_diverts",
+    indicator_name = "A&E diverts",
+    indicator_21 = this_week_summary %>% filter(name == "Diverts") %>% pull(`2021-22`),
+    indicator_20 = this_week_summary %>% filter(name == "Diverts") %>% pull(`2020-21`),
+    indicator_19 = this_week_summary %>% filter(name == "Diverts") %>% pull(`2019-20`)
+  )
 
-    summary_server(
-      id = "summary_delays_30",
-      indicator_name = "Ambulance handover delays (30-60 mins)",
-      indicator_21 = this_week_summary %>% filter(name == "Delays30") %>% pull(`2021-22`),
-      indicator_20 = this_week_summary %>% filter(name == "Delays30") %>% pull(`2020-21`),
-      indicator_19 = this_week_summary %>% filter(name == "Delays30") %>% pull(`2019-20`)
-    )
+  summary_server(
+    id = "summary_closures",
+    indicator_name = "A&E closures",
+    indicator_21 = this_week_summary %>% filter(name == "Closures") %>% pull(`2021-22`),
+    indicator_20 = this_week_summary %>% filter(name == "Closures") %>% pull(`2020-21`),
+    indicator_19 = this_week_summary %>% filter(name == "Closures") %>% pull(`2019-20`)
+  )
 
-    summary_server(
-      id = "summary_delays_60",
-      indicator_name = "Ambulance handover delays (60+ mins)",
-      indicator_21 = this_week_summary %>% filter(name == "Delays60") %>% pull(`2021-22`),
-      indicator_20 = this_week_summary %>% filter(name == "Delays60") %>% pull(`2020-21`),
-      indicator_19 = this_week_summary %>% filter(name == "Delays60") %>% pull(`2019-20`)
-    )
+  summary_server(
+    id = "summary_delays_30",
+    indicator_name = "Ambulance handover delays (30-60 mins)",
+    indicator_21 = this_week_summary %>% filter(name == "Delays30") %>% pull(`2021-22`),
+    indicator_20 = this_week_summary %>% filter(name == "Delays30") %>% pull(`2020-21`),
+    indicator_19 = this_week_summary %>% filter(name == "Delays30") %>% pull(`2019-20`)
+  )
+
+  summary_server(
+    id = "summary_delays_60",
+    indicator_name = "Ambulance handover delays (60+ mins)",
+    indicator_21 = this_week_summary %>% filter(name == "Delays60") %>% pull(`2021-22`),
+    indicator_20 = this_week_summary %>% filter(name == "Delays60") %>% pull(`2020-21`),
+    indicator_19 = this_week_summary %>% filter(name == "Delays60") %>% pull(`2019-20`)
+  )
 }
 
 # Run the application
