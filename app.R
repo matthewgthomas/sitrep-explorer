@@ -356,6 +356,13 @@ server <- function(input, output, session) {
         domain = map_data$indicator
       )
 
+      # Create friendly labels if the selected indicator is a percentage
+      indicator_labels <- labelFormat(
+        digits = 0,
+        suffix = ifelse(str_detect(input$indicator, "rates"), "%", ""),
+        transform = ifelse(str_detect(input$indicator, "rates"), function(x) x * 100, identity)
+      )
+
       leaflet(
         data = map_data,
         options = leafletOptions(zoomControl = FALSE)
@@ -390,7 +397,7 @@ server <- function(input, output, session) {
           pal = pal,
           na.label = "No value",
           values = ~indicator,
-          labels = ~indicator_formatted,
+          labFormat = indicator_labels,
           title = str_wrap(input$indicator, 20),
           opacity = 1
         )
