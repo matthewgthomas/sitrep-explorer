@@ -2,6 +2,7 @@ library(shiny)
 library(arrow)
 library(dplyr)
 library(tidyr)
+library(readr)
 library(stringr)
 library(ggplot2)
 library(leaflet)
@@ -23,7 +24,7 @@ trusts_geocoded <- read_rds("data/trusts-geocoded.rds")
 
 trust_names <-
   trusts %>%
-  filter(year == "2021-22") %>%
+  filter(year == "2022-23") %>%
   select(Name) %>%
   distinct() %>%
   arrange(Name) %>%
@@ -35,13 +36,13 @@ england <-
   mutate(`Occupancy rate` = `G&A beds occ'd` / `G&A Beds Open`) %>%
   mutate(
     opacity = case_when(
+      year == "2022-23" ~ 1,
       year == "2021-22" ~ 1,
-      year == "2020-21" ~ 1,
       TRUE ~ 0.9
     ),
     colour = case_when(
-      year == "2021-22" ~ "red",
-      year == "2020-21" ~ "black",
+      year == "2022-23" ~ "red",
+      year == "2021-22" ~ "black",
       TRUE ~ "grey"
     )
   )
@@ -51,31 +52,31 @@ trusts <-
   mutate(`Occupancy rate` = `G&A beds occ'd` / `G&A Beds Open`) %>%
   mutate(
     opacity = case_when(
+      year == "2022-23" ~ 1,
       year == "2021-22" ~ 1,
-      year == "2020-21" ~ 1,
       TRUE ~ 0.9
     ),
     colour = case_when(
-      year == "2021-22" ~ "red",
-      year == "2020-21" ~ "black",
+      year == "2022-23" ~ "red",
+      year == "2021-22" ~ "black",
       TRUE ~ "grey"
     )
   )
 
 # ---- Data wrangling for summary indicators ----
 # Does this winter's sitrep include data from after January?
-contains_new_year_data <- TRUE
+contains_new_year_data <- FALSE
 
 # Get most recent week number
 this_week <-
   england_summary %>%
-  filter(year == "2021-22") %>%
-  {if (contains_new_year_data) filter(., year == "2021-22" & week < 20) else filter(., year == "2021-22") } %>%
+  filter(year == "2022-23") %>%
+  {if (contains_new_year_data) filter(., year == "2022-23" & week < 20) else filter(., year == "2022-23") } %>%
   filter(week == max(week)) %>%
   distinct(week) %>%
   pull(week)
 
-this_week <- 9
+# this_week <- 9
 
 # Recast summary for this week so rows are indicators and columns are years
 this_week_summary <-
@@ -84,6 +85,12 @@ this_week_summary <-
   select(-week) %>%
   pivot_longer(cols = -year) %>%
   pivot_wider(names_from = year, values_from = value)
+
+# Not every week is present in each year's dataset, so add them in if mising
+if (!"2022-23" %in% names(this_week_summary)) this_week_summary$`2022-23` = NA
+if (!"2021-22" %in% names(this_week_summary)) this_week_summary$`2021-22` = NA
+if (!"2020-21" %in% names(this_week_summary)) this_week_summary$`2020-21` = NA
+if (!"2019-20" %in% names(this_week_summary)) this_week_summary$`2019-20` = NA
 
 # this_week_summary_trusts <-
 #   trusts_summary %>%
@@ -625,6 +632,7 @@ server <- function(input, output, session) {
   summary_server(
     id = "summary_beds_occ",
     indicator_name = "General & Acute beds occupied",
+    indicator_22 = this_week_summary %>% filter(name == "G&A beds occ'd") %>% pull(`2022-23`),
     indicator_21 = this_week_summary %>% filter(name == "G&A beds occ'd") %>% pull(`2021-22`),
     indicator_20 = this_week_summary %>% filter(name == "G&A beds occ'd") %>% pull(`2020-21`),
     indicator_19 = this_week_summary %>% filter(name == "G&A beds occ'd") %>% pull(`2019-20`),
@@ -633,6 +641,7 @@ server <- function(input, output, session) {
   summary_server(
     id = "summary_beds_open",
     indicator_name = "General & Acute beds open",
+    indicator_22 = this_week_summary %>% filter(name == "G&A Beds Open") %>% pull(`2022-23`),
     indicator_21 = this_week_summary %>% filter(name == "G&A Beds Open") %>% pull(`2021-22`),
     indicator_20 = this_week_summary %>% filter(name == "G&A Beds Open") %>% pull(`2020-21`),
     indicator_19 = this_week_summary %>% filter(name == "G&A Beds Open") %>% pull(`2019-20`),
@@ -642,6 +651,7 @@ server <- function(input, output, session) {
   summary_server(
     id = "summary_cc_occ",
     indicator_name = "Adult critical care beds occupied",
+    indicator_22 = this_week_summary %>% filter(name == "CC Adult Occ") %>% pull(`2022-23`),
     indicator_21 = this_week_summary %>% filter(name == "CC Adult Occ") %>% pull(`2021-22`),
     indicator_20 = this_week_summary %>% filter(name == "CC Adult Occ") %>% pull(`2020-21`),
     indicator_19 = this_week_summary %>% filter(name == "CC Adult Occ") %>% pull(`2019-20`),
@@ -650,6 +660,7 @@ server <- function(input, output, session) {
   summary_server(
     id = "summary_cc_open",
     indicator_name = "Adult critical care beds open",
+    indicator_22 = this_week_summary %>% filter(name == "CC Adult Open") %>% pull(`2022-23`),
     indicator_21 = this_week_summary %>% filter(name == "CC Adult Open") %>% pull(`2021-22`),
     indicator_20 = this_week_summary %>% filter(name == "CC Adult Open") %>% pull(`2020-21`),
     indicator_19 = this_week_summary %>% filter(name == "CC Adult Open") %>% pull(`2019-20`),
@@ -659,6 +670,7 @@ server <- function(input, output, session) {
   summary_server(
     id = "summary_long_7",
     indicator_name = "Beds occupied by long-stay patients (> 7 days)",
+    indicator_22 = this_week_summary %>% filter(name == "No. beds occupied by long-stay patients (> 7 days)") %>% pull(`2022-23`),
     indicator_21 = this_week_summary %>% filter(name == "No. beds occupied by long-stay patients (> 7 days)") %>% pull(`2021-22`),
     indicator_20 = this_week_summary %>% filter(name == "No. beds occupied by long-stay patients (> 7 days)") %>% pull(`2020-21`),
     indicator_19 = this_week_summary %>% filter(name == "No. beds occupied by long-stay patients (> 7 days)") %>% pull(`2019-20`)
@@ -667,6 +679,7 @@ server <- function(input, output, session) {
   summary_server(
     id = "summary_long_21",
     indicator_name = "Beds occupied by long-stay patients (> 21 days)",
+    indicator_22 = this_week_summary %>% filter(name == "No. beds occupied by long-stay patients (> 21 days)") %>% pull(`2022-23`),
     indicator_21 = this_week_summary %>% filter(name == "No. beds occupied by long-stay patients (> 21 days)") %>% pull(`2021-22`),
     indicator_20 = this_week_summary %>% filter(name == "No. beds occupied by long-stay patients (> 21 days)") %>% pull(`2020-21`),
     indicator_19 = this_week_summary %>% filter(name == "No. beds occupied by long-stay patients (> 21 days)") %>% pull(`2019-20`)
@@ -675,6 +688,7 @@ server <- function(input, output, session) {
   summary_server(
     id = "summary_diverts",
     indicator_name = "A&E diverts",
+    indicator_22 = this_week_summary %>% filter(name == "Diverts") %>% pull(`2022-23`),
     indicator_21 = this_week_summary %>% filter(name == "Diverts") %>% pull(`2021-22`),
     indicator_20 = this_week_summary %>% filter(name == "Diverts") %>% pull(`2020-21`),
     indicator_19 = this_week_summary %>% filter(name == "Diverts") %>% pull(`2019-20`)
@@ -683,6 +697,7 @@ server <- function(input, output, session) {
   summary_server(
     id = "summary_closures",
     indicator_name = "A&E closures",
+    indicator_22 = this_week_summary %>% filter(name == "Closures") %>% pull(`2022-23`),
     indicator_21 = this_week_summary %>% filter(name == "Closures") %>% pull(`2021-22`),
     indicator_20 = this_week_summary %>% filter(name == "Closures") %>% pull(`2020-21`),
     indicator_19 = this_week_summary %>% filter(name == "Closures") %>% pull(`2019-20`)
@@ -691,6 +706,7 @@ server <- function(input, output, session) {
   summary_server(
     id = "summary_delays_30",
     indicator_name = "Ambulance handover delays (30-60 mins)",
+    indicator_22 = this_week_summary %>% filter(name == "Delays30") %>% pull(`2022-23`),
     indicator_21 = this_week_summary %>% filter(name == "Delays30") %>% pull(`2021-22`),
     indicator_20 = this_week_summary %>% filter(name == "Delays30") %>% pull(`2020-21`),
     indicator_19 = this_week_summary %>% filter(name == "Delays30") %>% pull(`2019-20`)
@@ -699,6 +715,7 @@ server <- function(input, output, session) {
   summary_server(
     id = "summary_delays_60",
     indicator_name = "Ambulance handover delays (60+ mins)",
+    indicator_22 = this_week_summary %>% filter(name == "Delays60") %>% pull(`2022-23`),
     indicator_21 = this_week_summary %>% filter(name == "Delays60") %>% pull(`2021-22`),
     indicator_20 = this_week_summary %>% filter(name == "Delays60") %>% pull(`2020-21`),
     indicator_19 = this_week_summary %>% filter(name == "Delays60") %>% pull(`2019-20`)
