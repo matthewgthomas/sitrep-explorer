@@ -49,7 +49,7 @@ plot_trends <- function(d, indicator, indicator_name, trust_name = NULL, plottin
 
     labs(
       title = paste0(indicator_name, " in ", place),
-      subtitle = paste0("Red line is 2021-22; black line is 2020-21; ", year_text),
+      subtitle = paste0("Red line is 2022-23; black line is 2021-22; ", year_text),
       x = NULL,
       y = indicator_name,
       caption = "Source: BRC/I&I analysis of NHSE data"
@@ -83,7 +83,7 @@ plot_counts <- function(d, indicator_name, trust_name = NULL) {
     theme(legend.position = "bottom")
 }
 
-plot_trust_comparison_trends <- function(d, indicator, indicator_name, trust_name, this_year = "2021-22", plotting_rates = TRUE) {
+plot_trust_comparison_trends <- function(d, indicator, indicator_name, trust_name, this_year = "2022-23", plotting_rates = TRUE) {
   # Set y axis limit to 100% if plotting rates
   y_axis_format <- NULL
   y_limits <- NULL
@@ -117,7 +117,7 @@ plot_trust_comparison_trends <- function(d, indicator, indicator_name, trust_nam
     theme_classic()
 }
 
-plot_trust_england_comparison_trends <- function(d, indicator, indicator_name, trust_name, this_year = "2021-22", plotting_rates = TRUE) {
+plot_trust_england_comparison_trends <- function(d, indicator, indicator_name, trust_name, this_year = "2022-23", plotting_rates = TRUE) {
   # Set y axis limit to 100% if plotting rates
   y_axis_format <- NULL
   y_limits <- NULL
@@ -129,7 +129,7 @@ plot_trust_england_comparison_trends <- function(d, indicator, indicator_name, t
     y_axis_format <- scales::comma
   }
 
-  england %>%
+  d %>%
     filter(year == this_year) %>%
 
     ggplot(aes(x = day_of_year, y = {{ indicator }}, group = 1)) +
