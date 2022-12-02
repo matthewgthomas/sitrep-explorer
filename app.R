@@ -8,6 +8,7 @@ library(ggplot2)
 library(leaflet)
 library(lubridate)
 library(shinycssloaders)
+library(sf)
 
 source("plot-functions.R")
 source("summaries.R")
@@ -322,7 +323,7 @@ server <- function(input, output, session) {
       # This will be implemented later, so for now just take most recent values
       curr_trust_data <-
         trusts_geocoded |>
-        filter(Date == ymd("2022-03-08"))
+        filter(Date == max(Date))
 
       # Fetch data for selected indicator
       map_data <-
