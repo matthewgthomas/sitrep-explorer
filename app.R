@@ -66,7 +66,7 @@ trusts <-
 
 # ---- Data wrangling for summary indicators ----
 # Does this winter's sitrep include data from after January?
-contains_new_year_data <- FALSE
+contains_new_year_data <- TRUE
 
 # Get most recent week number
 this_week <-
